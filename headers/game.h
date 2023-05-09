@@ -25,6 +25,7 @@ public:
 	void startGame();
 	void mainMenu();
 	void createCharacter();
+	void deleteCharacter();
 	void levelUpCharacter();
 	void characterMenu();
 	void save();

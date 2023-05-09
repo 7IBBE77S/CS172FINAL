@@ -25,21 +25,20 @@ void Game::startGame()
 	Weapon::initializeNames();
 	Gear::initializeNames();
 
-
 	// check if a player.txt file is empty and if it is create a new character
 
-	//Guards against an empty file
+	// Guards against an empty file
 	if (in.peek() == std::ifstream::traits_type::eof())
 	{
 		createCharacter();
 		this->save();
-	} 
-	//If a file does exist, load the character
+	}
+	// If a file does exist, load the character
 	else if (in.is_open())
 	{
 		this->load();
-	} 
-	//If no file exists, create a new character
+	}
+	// If no file exists, create a new character
 	else
 	{
 		createCharacter();
@@ -90,11 +89,13 @@ void Game::mainMenu()
 			 << "\n";
 		cout << "5: Create new player"
 			 << "\n";
-		cout << "6: Select player"
+		cout << "6: Delete player"
 			 << "\n";
-		cout << "7: Save"
+		cout << "7: Select player"
 			 << "\n";
-		cout << "8: Load"
+		cout << "8: Save"
+			 << "\n";
+		cout << "9: Load"
 			 << "\n";
 		cout << "0: Exit"
 			 << "\n";
@@ -151,16 +152,19 @@ void Game::mainMenu()
 			createCharacter();
 			save();
 			break;
-
 		case 6:
+			deleteCharacter();
+			save();
+
+			case 7:
 			select();
 			break;
 
-		case 7:
+		case 8:
 			save();
 			break;
 
-		case 8:
+		case 9:
 			load();
 			break;
 
@@ -221,6 +225,11 @@ void Game::createCharacter()
 	player.push_back(Character());
 	loadedPlayer = player.size() - 1;
 	player[loadedPlayer].initialize(name);
+}
+
+void Game::deleteCharacter()
+{
+	
 }
 
 void Game::levelUpCharacter()
