@@ -143,11 +143,11 @@ void Event::shop(Character &player)
 
 		switch (choice)
 		{
-		case 0: 
+		case 0:
 			inShop = false;
 			break;
 
-		case 1: 
+		case 1:
 
 			cout << "*** Available Items ***"
 				 << endl;
@@ -312,7 +312,6 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 	{
 		if (playerTurn && !playerDefeated)
 		{
-		
 
 			cout << "Prepare for battle!"
 				 << endl;
@@ -344,58 +343,67 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 
 			if (choice == 2)
 			{
-
 				healthColor = colors.Cyan;
-				for (int i = 0; i < health / 1; i++)
+				for (int i = 0; i < health; i++)
 				{
 					healthBars += "#";
 				}
 			}
 			else
 			{
+				int maxHealth = player.getHealthPointsMax();
 
-				if (health >= player.getHealthPointsMax() * 0.75)
+				if (health >= maxHealth * 0.75)
+				{
+					for (int i = 0; i < health; i++)
 					{
-
-						for (int i = 0; i < health / 1; i++)
-						{
-							healthBars += "#";
-						}
-						healthColor = colors.White;
+						healthBars += "#";
 					}
-					else if (health >= player.getHealthPointsMax() / 2)
+					for (int i = health; i < maxHealth; i++)
 					{
-						for (int i = 0; i < health / 1; i++)
-						{
-							healthBars += "#";
-						}
-						healthColor = health;
-
-						healthColor = colors.Yellow;
+						healthBars += "_";
 					}
-					else if (health >= player.getHealthPointsMax() / 4)
+					healthColor = colors.White;
+				}
+				else if (health >= maxHealth / 2)
+				{
+					for (int i = 0; i < health; i++)
 					{
-						for (int i = 0; i < health / 1; i++)
-						{
-							healthBars += "#";
-						}
-						healthColor = health;
-
-						healthColor = colors.LightRed;
+						healthBars += "#";
 					}
-					else
+					for (int i = health; i < maxHealth; i++)
 					{
-						for (int i = 0; i < health / 1; i++)
-						{
-							healthBars += "#";
-						}
-						healthColor = health;
-
-						healthColor = colors.Red;
+						healthBars += "_";
 					}
+					healthColor = colors.Yellow;
+				}
+				else if (health >= maxHealth / 4)
+				{
+					for (int i = 0; i < health; i++)
+					{
+						healthBars += "#";
+					}
+					for (int i = health; i < maxHealth; i++)
+					{
+						healthBars += "_";
+					}
+					healthColor = colors.LightRed;
+				}
+				else
+				{
+					for (int i = 0; i < health; i++)
+					{
+						healthBars += "#";
+					}
+					for (int i = health; i < maxHealth; i++)
+					{
+						healthBars += "_";
+					}
+					healthColor = colors.Red;
+				}
 			}
 
-			// if use defend then healthBar is cyan
+			// If using defense, the health bar is cyan
 			cout << "Health: " << healthColor << health << colors.Clean << " / " << player.getHealthPointsMax() << " " << healthColor << "|" << healthBars << "|" << colors.Clean << endl;
 
 			while (cin.fail() || choice > 3 || choice < 0)
@@ -427,10 +435,9 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 			cin.ignore(100, '\n');
 			cout << endl;
 
-		
 			switch (choice)
 			{
-			case 0: 
+			case 0:
 				escape = true;
 				break;
 
@@ -612,7 +619,7 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 				cout << "Player roll: " << combatRollPlayer << "\n";
 				cout << "Monster roll: " << combatRollMonster << endl;
 
-				if (combatRollPlayer < combatRollMonster) 
+				if (combatRollPlayer < combatRollMonster)
 				{
 					cout << "HIT! " << endl;
 
@@ -623,48 +630,75 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 					std::string healthColor;
 					int health = player.getHealthPoints();
 					std::string healthBars;
+					
+					int maxHealth = player.getHealthPointsMax();
 
-					if (health >= player.getHealthPointsMax() * 0.75)
+					if (choice == 2)
 					{
-
-						for (int i = 0; i < health / 1; i++)
+						for (int i = 0; i < health; i++)
 						{
 							healthBars += "#";
 						}
-						healthColor = colors.White;
-					}
-					else if (health >= player.getHealthPointsMax() / 2)
-					{
-						for (int i = 0; i < health / 1; i++)
+						for (int i = health; i < maxHealth; i++)
 						{
-							healthBars += "#";
+							healthBars += "_";
 						}
-						healthColor = health;
-
-						healthColor = colors.Yellow;
-					}
-					else if (health >= player.getHealthPointsMax() / 4)
-					{
-						for (int i = 0; i < health / 1; i++)
-						{
-							healthBars += "#";
-						}
-						healthColor = health;
-
-						healthColor = colors.LightRed;
+						healthColor = colors.Cyan;
 					}
 					else
 					{
-						for (int i = 0; i < health / 1; i++)
-						{
-							healthBars += "#";
-						}
-						healthColor = health;
 
-						healthColor = colors.Red;
+						if (health >= maxHealth * 0.75)
+						{
+							for (int i = 0; i < health; i++)
+							{
+								healthBars += "#";
+							}
+							for (int i = health; i < maxHealth; i++)
+							{
+								healthBars += "_";
+							}
+							healthColor = colors.White;
+						}
+						else if (health >= maxHealth / 2)
+						{
+							for (int i = 0; i < health; i++)
+							{
+								healthBars += "#";
+							}
+							for (int i = health; i < maxHealth; i++)
+							{
+								healthBars += "_";
+							}
+							healthColor = colors.Yellow;
+						}
+						else if (health >= maxHealth / 4)
+						{
+							for (int i = 0; i < health; i++)
+							{
+								healthBars += "#";
+							}
+							for (int i = health; i < maxHealth; i++)
+							{
+								healthBars += "_";
+							}
+							healthColor = colors.LightRed;
+						}
+						else
+						{
+							for (int i = 0; i < health; i++)
+							{
+								healthBars += "#";
+							}
+							for (int i = health; i < maxHealth; i++)
+							{
+								healthBars += "_";
+							}
+							healthColor = colors.Red;
+						}
 					}
 
-					// if use defend then healthBar is cyan
+					// If using defense, the health bar is cyan
 					cout << "Health: " << healthColor << health << colors.Clean << " / " << player.getHealthPointsMax() << " " << healthColor << "|" << healthBars << "|" << colors.Clean << endl;
 
 					if (!player.isAlive())

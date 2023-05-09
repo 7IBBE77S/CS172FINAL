@@ -3,6 +3,7 @@
 
 #include "player.h"
 
+//test class
 class Wizard : public Character
 {
 private:

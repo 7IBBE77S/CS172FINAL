@@ -3,6 +3,8 @@
 
 #include "player.h"
 
+//test class
+
 class Rogue : public Character
 {
 private:
