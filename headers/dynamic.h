@@ -6,6 +6,7 @@
 // This class is a dynamic array that can be resized and expanded as needed.
 
 // A fun custom simplified implementation of a "std::vector<> class" i.e. (resizable dynamic array) made specificity for this project. 
+
 template <typename T>
 class Dynamic
 {
@@ -19,18 +20,41 @@ private:
 	void initialize(unsigned F);
 
 public:
-	Dynamic(unsigned size = 5);
-	Dynamic(const Dynamic &object);
-	~Dynamic();
+	Dynamic(unsigned size = 5); //creates a Dynamic object with an initial size (default size is 5).
+	Dynamic(const Dynamic &object); //creates a new Dynamic object by copying the contents of another Dynamic object.
+	~Dynamic(); // releases the memory allocated for the array and its elements.
 
-	T &operator[](const unsigned index);
-	void operator=(const Dynamic &object);
+	T &operator[](const unsigned index); // Overloaded [] operator for accessing elements of the array by index.
+	void operator=(const Dynamic &object); // Overloaded assignment operator for assigning the contents of one Dynamic object to another.
 
-	unsigned maxCapacity();
-	unsigned size();
-	void push(const T element);
-	void remove(const unsigned index, bool ordered = false);
+	unsigned maxCapacity(); //  Returns the maximum capacity of the dynamic array.
+	unsigned size(); // Returns the number of elements in the array.
+	void push(const T element); // Adds an element to the end of the array, dynamically increasing the capacity if necessary.
+	void remove(const unsigned index, bool ordered = false); // Removes the element at the specified index from the array, optionally maintaining the order of the remaining elements.
+
 };
+
+// Dynamic<T>::pop()
+// {
+// 	if (this->elementSize == 0)
+// 		throw "Array is empty!";
+
+// 	T element = *this->array[this->elementSize - 1];
+// 	this->remove(this->elementSize - 1);
+
+// 	return element;
+// }
+
+// Dynamic<T>::clear()
+// {
+// 	for (size_t i = 0; i < this->elementSize; i++)
+// 	{
+// 		delete this->array[i];
+// 	}
+// 	this->elementSize = 0;
+// }
+
+
 
 template <typename T>
 Dynamic<T>::Dynamic(unsigned size)
@@ -102,7 +126,7 @@ void Dynamic<T>::operator=(const Dynamic &object)
 
 	this->initialize(0);
 }
-
+// Doubles the capacity of the array when it becomes full.
 template <typename T>
 void Dynamic<T>::scaleUp()
 {
@@ -122,8 +146,8 @@ void Dynamic<T>::scaleUp()
 	this->initialize(this->elementSize); // initialize the new array
 }
 
-// This function initializes the array with nullptrs to serve as placeholder values
-// The parameter F (from) is used to determine where to start initializing the array
+//  Initializes the array with nullptr values, starting from the specified index F.
+//  The parameter F (from) is used to determine where to start initializing the array
 template <typename T>
 void Dynamic<T>::initialize(unsigned F)
 {

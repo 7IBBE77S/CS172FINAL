@@ -22,6 +22,7 @@
 - [] beautify UI
 - [] add boss fights. Derived from the monster class.
 - [] maybe simplify/clean up player.cpp,event.cpp, and game.cpp. They are getting a little messy and the readability is lacking.
+- [] unequip gear and it will go back into inventory.
 - [] DOCUMENTATION
 
 

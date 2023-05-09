@@ -5,12 +5,12 @@
 #include "event.h"
 
 using namespace std;
+
 class Game
 {
 private:
 	int choice;
 	bool playing;
-
 
 	int loadedPlayer;
 	std::vector<Character> player;
@@ -21,8 +21,6 @@ private:
 public:
 	Game();
 	~Game();
-
-	
 
 	void startGame();
 	void mainMenu();
@@ -36,10 +34,21 @@ public:
 	void rest();
 
 	inline bool isPlaying() const { return this->playing; }
+	// void clearTerminal()
+	// {
+	// 	if (system("cls"))
+	// 		system("clear");
+	// }
+
 	void clearTerminal()
 	{
-		if (system("cls"))
-			system("clear");
+#ifdef __APPLE__
+		std::system("clear");
+
+#else
+		std::system("cls");
+
+#endif
 	}
 };
 
