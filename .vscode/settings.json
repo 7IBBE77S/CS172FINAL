@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.ejs": "html",
+        "*html": "html",
+        "*njk": "html",
+        "*.tmpl": "html",
+        "*.v": "v",
+        "vector": "cpp"
+    }
+}

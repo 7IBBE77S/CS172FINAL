@@ -20,6 +20,8 @@
 - [] Somehow make more engaging. In terms of UI, gameplay/gameloop.
 - [] add items for battle options. Once option 2 is selected it will prompt the user to use a health potion, shield potion (resistance buff), flame, bleed, poison enchantment, etc. This will need to be added as item drops just like gear.
 - [] beautify UI
+- [] add boss fights. Derived from the monster class.
+- [] maybe simplify/clean up player.cpp,event.cpp, and game.cpp. They are getting a little messy and the readability is lacking.
 - [] DOCUMENTATION
 
 

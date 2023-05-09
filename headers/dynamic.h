@@ -5,7 +5,7 @@
 // cant make cpp file because it is generic
 // This class is a dynamic array that can be resized and expanded as needed.
 
-// a fun custom simplified implementation of a "vector" i.e. (resizable dynamic array) made specificity this project. 
+// A fun custom simplified implementation of a "std::vector<> class" i.e. (resizable dynamic array) made specificity for this project. 
 template <typename T>
 class Dynamic
 {

@@ -52,6 +52,7 @@ Weapon::~Weapon()
 {
 }
 
+// returns a copy of the weapon that called this function
 Weapon *Weapon::clone() const
 {
 	return new Weapon(*this);

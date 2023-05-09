@@ -18,8 +18,7 @@ private:
 public:
 	Monster(int level = 0);
 
-	// use virtual here to make sure that the destructor of the derived class is called
-	// https://en.cppreference.com/w/cpp/language/virtual
+
 	~Monster();
 
 	bool isAlive()

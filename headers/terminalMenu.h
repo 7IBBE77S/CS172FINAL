@@ -4,6 +4,8 @@
 #include <sstream>
 #include <string>
 
+// namespace for this use case is probably not necessary. Should be updated to not use it, maybe...
+
 namespace menu
 {
 	// Returns a title string
