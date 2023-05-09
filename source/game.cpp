@@ -156,7 +156,7 @@ void Game::mainMenu()
 			deleteCharacter();
 			save();
 
-			case 7:
+		case 7:
 			select();
 			break;
 
@@ -229,7 +229,6 @@ void Game::createCharacter()
 
 void Game::deleteCharacter()
 {
-	
 }
 
 void Game::levelUpCharacter()
