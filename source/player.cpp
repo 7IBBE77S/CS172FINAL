@@ -119,7 +119,7 @@ void Character::printStats() const
 	cout << "\n";
 	cout << "* Weapon: " << this->weapon.getName()
 		 << " Level: " << this->weapon.getLevel()
-		 << " Dam: " << this->weapon.getMinAttack() << " - " << this->weapon.getMaxAttack() << "\n";
+		 << " Damage: " << this->weapon.getMinAttack() << " - " << this->weapon.getMaxAttack() << "\n";
 	cout << "* Gear Head: " << this->helmet.getName()
 		 << " Level: " << this->helmet.getLevel()
 		 << " Defense: " << this->helmet.getDefense() << "\n";

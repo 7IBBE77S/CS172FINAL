@@ -47,6 +47,7 @@ FIX:
 
 - [] -1 needs to be fixed
 - [] fix colors for heath bar.
+- [] when the player does have gear and you try to equip it you will not be able to leave. This can be fixed by adding default gear to the player.
 
 
 
