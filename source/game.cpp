@@ -1,6 +1,6 @@
 #include "game.h"
-#include "weapon.h"
-#include "gear.h"
+// #include "weapon.h"
+// #include "gear.h"
 using namespace menu;
 
 Game::Game()

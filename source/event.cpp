@@ -354,45 +354,45 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 			else
 			{
 
-				if (health >= 70)
-				{
-
-					for (int i = 0; i < health / 1; i++)
+				if (health >= player.getHealthPointsMax() * 0.75)
 					{
-						healthBars += "#";
-					}
-					healthColor = colors.White;
-				}
-				else if (health >= 40)
-				{
-					for (int i = 0; i < health / 1; i++)
-					{
-						healthBars += "#";
-					}
-					healthColor = health;
 
-					healthColor = colors.Yellow;
-				}
-				else if (health >= 25)
-				{
-					for (int i = 0; i < health / 1; i++)
-					{
-						healthBars += "#";
+						for (int i = 0; i < health / 1; i++)
+						{
+							healthBars += "#";
+						}
+						healthColor = colors.White;
 					}
-					healthColor = health;
-
-					healthColor = colors.LightRed;
-				}
-				else
-				{
-					for (int i = 0; i < health / 1; i++)
+					else if (health >= player.getHealthPointsMax() / 2)
 					{
-						healthBars += "#";
-					}
-					healthColor = health;
+						for (int i = 0; i < health / 1; i++)
+						{
+							healthBars += "#";
+						}
+						healthColor = health;
 
-					healthColor = colors.Red;
-				}
+						healthColor = colors.Yellow;
+					}
+					else if (health >= player.getHealthPointsMax() / 4)
+					{
+						for (int i = 0; i < health / 1; i++)
+						{
+							healthBars += "#";
+						}
+						healthColor = health;
+
+						healthColor = colors.LightRed;
+					}
+					else
+					{
+						for (int i = 0; i < health / 1; i++)
+						{
+							healthBars += "#";
+						}
+						healthColor = health;
+
+						healthColor = colors.Red;
+					}
 			}
 
 			// if use defend then healthBar is cyan
@@ -624,7 +624,7 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 					int health = player.getHealthPoints();
 					std::string healthBars;
 
-					if (health >= player.getHealthPointsMax() / 2)
+					if (health >= player.getHealthPointsMax() * 0.75)
 					{
 
 						for (int i = 0; i < health / 1; i++)
@@ -633,7 +633,7 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 						}
 						healthColor = colors.White;
 					}
-					else if (health >= player.getHealthPointsMax() / 3)
+					else if (health >= player.getHealthPointsMax() / 2)
 					{
 						for (int i = 0; i < health / 1; i++)
 						{
