@@ -6,7 +6,7 @@
 
 enum gearType
 {
-	HELMET = 0,
+	HELMET,
 	CHEST,
 	GAUNTLET,
 	LEGS

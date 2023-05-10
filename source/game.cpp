@@ -114,7 +114,7 @@ void Game::mainMenu()
 			cin.ignore(100, '\n');
 
 			cout << "\n"
-				 << "Choice (0 - 8): ";
+				 << "Choice (0 - 9): ";
 			cin >> this->choice;
 		}
 
