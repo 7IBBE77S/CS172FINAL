@@ -2,7 +2,6 @@
 #define DARR_H
 
 // Dynamic generic array
-// cant make cpp file because it is generic
 // This class is a dynamic array that can be resized and expanded as needed.
 
 // A fun custom simplified implementation of a "std::vector<> class" i.e. (resizable dynamic array) made specificity for this project. 

@@ -35,11 +35,7 @@ public:
 	void rest();
 
 	inline bool isPlaying() const { return this->playing; }
-	// void clearTerminal()
-	// {
-	// 	if (system("cls"))
-	// 		system("clear");
-	// }
+
 
 	void clearTerminal()
 	{

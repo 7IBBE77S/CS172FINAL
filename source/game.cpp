@@ -155,6 +155,7 @@ void Game::mainMenu()
 		case 6:
 			deleteCharacter();
 			save();
+			break;
 
 		case 7:
 			select();
@@ -358,7 +359,12 @@ void Game::characterMenu()
 			 << "\n";
 		cout << menu::item(0, "Back");
 		cout << menu::item(1, "Print Inventory");
-		cout << menu::item(2, "Equip Item");
+
+		// Check if player has items in the inventory before allowing them to equip
+		if (player[loadedPlayer].getInventorySize() > 0) {
+			cout << menu::item(2, "Equip Item");
+		}
+
 		cout << "\n";
 		cout << "Choice";
 		cin >> this->choice;
@@ -376,8 +382,12 @@ void Game::characterMenu()
 				 << "\n";
 			cout << "1: Print Inventory"
 				 << "\n";
-			cout << "2: Equip Item"
-				 << "\n";
+
+			if (player[loadedPlayer].getInventorySize() > 0) {
+				cout << "2: Equip Item"
+					 << "\n";
+			}
+
 			cout << "\n";
 			cout << "Choice: ";
 			cin >> this->choice;
@@ -394,26 +404,31 @@ void Game::characterMenu()
 			break;
 
 		case 2:
-			cout << this->player[this->loadedPlayer].getInventoryToString();
-
-			cout << "Item index: ";
-			cin >> this->choice;
-
-			while (cin.fail() || this->choice < 0 || this->choice >= this->player[this->loadedPlayer].getInventorySize())
-			{
-				cout << "Try again."
-					 << "\n";
-				cin.clear();
-				cin.ignore(100, '\n');
+			if (player[loadedPlayer].getInventorySize() > 0) {
+				cout << this->player[this->loadedPlayer].getInventoryToString();
 
 				cout << "Item index: ";
 				cin >> this->choice;
+
+				while (cin.fail() || this->choice < 0 || this->choice >= this->player[this->loadedPlayer].getInventorySize())
+				{
+					cout << "Try again."
+						 << "\n";
+					cin.clear();
+					cin.ignore(255, '\n');
+
+					cout << "Item index: ";
+					cin >> this->choice;
+				}
+
+				cin.ignore(255, '\n');
+				cout << endl;
+
+				this->player[this->loadedPlayer].equipItem(this->choice);
 			}
-
-			cin.ignore(100, '\n');
-			cout << endl;
-
-			this->player[this->loadedPlayer].equipItem(this->choice);
+			else {
+				cout << "No items to equip." << endl;
+			}
 
 			break;
 		default:
@@ -427,6 +442,7 @@ void Game::characterMenu()
 
 	} while (this->choice > 0);
 }
+
 
 void Game::save()
 {

@@ -1,4 +1,6 @@
 #include "player.h"
+#include "weapon.h"
+#include "gear.h"
 #include <cmath>
 Character::Character()
 {
@@ -85,6 +87,13 @@ void Character::initialize(const string name)
 	this->intelligence = 5;
 
 	this->points = 0;
+
+	// add starting gear
+	this->weapon = Weapon(1, 5, "Rusty Sword", 1, 1, 1, 0);
+	this->helmet = Gear(1, 1, "Old Helmet", 1, 1, 1, 0);
+	this->chest_armor = Gear(1, 1, "Battle worn Chest Armor", 1, 1, 1, 0);
+	this->gauntlet = Gear(1, 1, "Leather Gauntlet", 1, 1, 1, 0);
+	this->leg_armor = Gear(1, 1, "Broken Leg Armor", 1, 1, 1, 0);
 
 	this->updateStats();
 }
@@ -280,7 +289,7 @@ void Character::equipItem(unsigned index)
 
 		Gear *a = nullptr;
 		a = dynamic_cast<Gear *>(&this->inventory[index]);
-		
+
 		if (w != nullptr)
 		{
 			if (this->weapon.getRarity() >= 0)
