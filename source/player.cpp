@@ -1,9 +1,11 @@
 #include "player.h"
+#include "game.h"
 #include "weapon.h"
 #include "gear.h"
 #include <cmath>
 Character::Character()
 {
+	this->characterClass = "";
 	this->distanceWandered = 0;
 
 	this->currency = 0;
@@ -37,11 +39,20 @@ Character::Character(string name, int distanceWandered,
 					 int dexterity, int intelligence,
 					 int health, int stamina, int points)
 {
+	//concept. Use derived classes in the future
+	 if (characterClass == "Wizard") {
+        this->name = name + " the Wizard";
+    } else if (characterClass == "Warrior"){
+		this->name = name + " the Warrior";
+	} else if (characterClass == "Rogue"){
+		this->name = name + " the Rogue";
+	}else {
+        this->name = name;
+    }
 	this->distanceWandered = distanceWandered;
 
 	this->currency = currency;
 
-	this->name = name;
 	this->level = level;
 	this->experience = experience;
 	this->expGained = 0;

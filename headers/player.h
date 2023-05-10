@@ -12,6 +12,7 @@ class  Character
 {
 	//separate private and protected for derived access
 private:
+	std::string characterClass;
 	int distanceWandered;
 
 	Inventory inventory;

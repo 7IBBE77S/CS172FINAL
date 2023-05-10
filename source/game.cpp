@@ -1,7 +1,7 @@
 #include "game.h"
-
-// #include "weapon.h"
-// #include "gear.h"
+#include "player.h"
+#include "weapon.h"
+#include "gear.h"
 using namespace menu;
 
 Game::Game()
@@ -226,39 +226,108 @@ void Game::createCharacter()
 	player.push_back(Character());
 	loadedPlayer = player.size() - 1;
 	player[loadedPlayer].initialize(name);
+
+	cout << "Select class:"
+		 << "\n";
+	cout << "1. Wizard"
+		 << "\n";
+	cout << "2. Warrior"
+		 << "\n";
+	cout << "3. Rogue"
+		 << "\n";
+
+	int classChoice;
+	cin >> classChoice;
+
+	while (cin.fail() || classChoice < 1 || classChoice > 3)
+	{
+		cout << "Invalid choice. Try again." << endl;
+		cin.clear();
+		cin.ignore(255, '\n');
+
+		cout << "Select class:"
+			 << "\n";
+		cout << "1. Wizard"
+			 << "\n";
+		cout << "2. Warrior"
+			 << "\n";
+		cout << "3. Rogue"
+			 << "\n";
+
+		cin >> classChoice;
+	}
+
+	cin.ignore(255, '\n');
+	cout << endl;
+
+	
+	// TODO: Make this more interesting.
+	// the choice needs to be special and meaningful. Having starting gear isn't enough.
+	// Perhaps had unique bonuses to each class. Warrior might have increased health/strength, 
+	// wizard increased intellect/damage, with reduced starting health (glass cannon?), rogue increased crit chance (not implemented yet) and accuracy.
+	// maybe add specific traits for each class, rage, focus, evasion, etc.
+
+	// Sets starting gear based on class choice
+
+	switch (classChoice)
+	{
+	case 1:
+		// Wizard
+		player[loadedPlayer].setGearHead(Gear(1, 5, "Pointy hat", 1, 1, 1, 0));
+		player[loadedPlayer].setGearChest(Gear(1, 1, "Robes", 1, 10, 20, 5));
+		player[loadedPlayer].setWeapon(Weapon(1, 1, "Staff", 1, 5, 10, 3));
+		break;
+
+	case 2:
+		// Warrior
+		player[loadedPlayer].setGearHead(Gear(1, 1, "Horned Helmet", 1, 1, 1, 0));
+		player[loadedPlayer].setGearChest(Gear(1, 1, "Tatered Chest", 1, 1, 1, 0));
+		player[loadedPlayer].setWeapon(Weapon(1, 1, "Great sword", 1, 5, 10, 3));
+
+		break;
+
+	case 3:
+		// Rogue
+		player[loadedPlayer].setGearHead(Gear(1, 1, "Cloak", 1, 1, 1, 0));
+		player[loadedPlayer].setGearChest(Gear(1, 1, "Leather Armor", 1, 1, 1, 0));
+		player[loadedPlayer].setWeapon(Weapon(1, 1, "Dagger", 1, 5, 10, 3));
+		break;
+
+	default:
+		break;
+	}
 }
 
 void Game::deleteCharacter()
 {
-    if (player.size() == 1)
-    {
-        std::cout << "Cannot delete the last remaining character." << std::endl;
-        return;
-    }
+	if (player.size() == 1)
+	{
+		std::cout << "Cannot delete the last remaining character." << std::endl;
+		return;
+	}
 
-    std::cout << "Select a character to delete:" << std::endl;
+	std::cout << "Select a character to delete:" << std::endl;
 
-    for (size_t i = 0; i < player.size(); i++)
-    {
-        std::cout << "Index: " << i << " = " << player[i].getName() << " Level: " << player[i].getLevel() << std::endl;
-    }
+	for (size_t i = 0; i < player.size(); i++)
+	{
+		std::cout << "Index: " << i << " = " << player[i].getName() << " Level: " << player[i].getLevel() << std::endl;
+	}
 
-    std::cout << "Choice: ";
-    std::cin >> choice;
+	std::cout << "Choice: ";
+	std::cin >> choice;
 
-    while (std::cin.fail() || choice >= player.size() || choice < 0)
-    {
-        std::cout << "Invalid choice. Try again." << std::endl;
-        std::cin.clear();
-        std::cin.ignore(255, '\n');
+	while (std::cin.fail() || choice >= player.size() || choice < 0)
+	{
+		std::cout << "Invalid choice. Try again." << std::endl;
+		std::cin.clear();
+		std::cin.ignore(255, '\n');
 
-        std::cout << "Choice: ";
-        std::cin >> choice;
-    }
+		std::cout << "Choice: ";
+		std::cin >> choice;
+	}
 
-    std::cin.ignore(255, '\n');
-    std::cout << std::endl;
-
+	std::cin.ignore(255, '\n');
+	std::cout << std::endl;
 
 	// for (int i = choice + 1; i < player.size(); i++)
 	// {
@@ -272,11 +341,9 @@ void Game::deleteCharacter()
 	// 	loadedPlayer = player.size() - 1;
 	// }
 
-    player.erase(player.begin() + choice);
+	player.erase(player.begin() + choice);
 
-
-
-    std::cout << "Character deleted successfully." << std::endl;
+	std::cout << "Character deleted successfully." << std::endl;
 }
 
 void Game::levelUpCharacter()
@@ -361,7 +428,8 @@ void Game::characterMenu()
 		cout << menu::item(1, "Print Inventory");
 
 		// Check if player has items in the inventory before allowing them to equip
-		if (player[loadedPlayer].getInventorySize() > 0) {
+		if (player[loadedPlayer].getInventorySize() > 0)
+		{
 			cout << menu::item(2, "Equip Item");
 		}
 
@@ -383,7 +451,8 @@ void Game::characterMenu()
 			cout << "1: Print Inventory"
 				 << "\n";
 
-			if (player[loadedPlayer].getInventorySize() > 0) {
+			if (player[loadedPlayer].getInventorySize() > 0)
+			{
 				cout << "2: Equip Item"
 					 << "\n";
 			}
@@ -404,7 +473,8 @@ void Game::characterMenu()
 			break;
 
 		case 2:
-			if (player[loadedPlayer].getInventorySize() > 0) {
+			if (player[loadedPlayer].getInventorySize() > 0)
+			{
 				cout << this->player[this->loadedPlayer].getInventoryToString();
 
 				cout << "Item index: ";
@@ -426,7 +496,8 @@ void Game::characterMenu()
 
 				this->player[this->loadedPlayer].equipItem(this->choice);
 			}
-			else {
+			else
+			{
 				cout << "No items to equip." << endl;
 			}
 
@@ -442,7 +513,6 @@ void Game::characterMenu()
 
 	} while (this->choice > 0);
 }
-
 
 void Game::save()
 {
