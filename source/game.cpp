@@ -229,6 +229,53 @@ void Game::createCharacter()
 
 void Game::deleteCharacter()
 {
+    if (player.size() == 1)
+    {
+        std::cout << "Cannot delete the last remaining character." << std::endl;
+        return;
+    }
+
+    std::cout << "Select a character to delete:" << std::endl;
+
+    for (size_t i = 0; i < player.size(); i++)
+    {
+        std::cout << "Index: " << i << " = " << player[i].getName() << " Level: " << player[i].getLevel() << std::endl;
+    }
+
+    std::cout << "Choice: ";
+    std::cin >> choice;
+
+    while (std::cin.fail() || choice >= player.size() || choice < 0)
+    {
+        std::cout << "Invalid choice. Try again." << std::endl;
+        std::cin.clear();
+        std::cin.ignore(255, '\n');
+
+        std::cout << "Choice: ";
+        std::cin >> choice;
+    }
+
+    std::cin.ignore(255, '\n');
+    std::cout << std::endl;
+
+
+	// for (int i = choice + 1; i < player.size(); i++)
+	// {
+	// 	player[i - 1] = player[i];
+	// }
+
+	// player.pop_back();
+
+	// if (loadedPlayer >= player.size())
+	// {
+	// 	loadedPlayer = player.size() - 1;
+	// }
+
+    player.erase(player.begin() + choice);
+
+
+
+    std::cout << "Character deleted successfully." << std::endl;
 }
 
 void Game::levelUpCharacter()

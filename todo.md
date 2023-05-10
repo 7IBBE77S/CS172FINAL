@@ -1,6 +1,5 @@
 # ADD:
 
-
 - [] give character starting gear.
 - [] add a resurrection/revive token as an item drop check if you have one once you die. If you do have one then using it will restart the encounter.
 - [] add flavor text.
