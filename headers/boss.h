@@ -11,6 +11,8 @@ private:
 public:
 	Boss();
 	~Boss();
+
+
 };
 #endif
 

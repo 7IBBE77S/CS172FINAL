@@ -2,7 +2,7 @@
 *  Author:         Nicholas Tibbetts
 *  Date:           05/10/2023 T00:05:01
 *  Course Code:    CS-172-2
-*  License:        Copyright 2022 Chris Strand, Nic Tibbetts
+*  License:        Copyright 2023 Chris Strand, Nic Tibbetts
 *  Resources used: 
                    https://cplusplus.com/
                    https://en.cppreference.com/w/cpp/types/size_t

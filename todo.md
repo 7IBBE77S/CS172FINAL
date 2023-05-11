@@ -56,7 +56,7 @@ FIX:
 - [] fix colors for heath bar.
 - [] when the player does have gear and you try to equip it you will not be able to leave. This can be fixed by adding default gear to the player.
 - [] game just ends when you kill all the monsters it should take you back to the main menu... sometimes.
-- [] when equipping gear it will not display the gear type on some pieces.
+- [/] when equipping gear it will not display the gear type on some pieces.
 - [] fix character names. Its not accounting for white spaces.
 
 

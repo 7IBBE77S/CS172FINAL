@@ -10,7 +10,6 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "-v",
                 "-Wall",
                 "-std=c++17",
                 "-o",
