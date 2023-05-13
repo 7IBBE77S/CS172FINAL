@@ -1,26 +1,38 @@
+
 #ifndef WIZARD_H
 #define WIZARD_H
 
 #include "player.h"
 
-//test class
+
 class Wizard : public Character
 {
 private:
-    int manaCost; 
-    std::string spellName;
-
-
-    
+    int type;
+    // int intelligence;
 
 public:
     Wizard();
-    // virtual wizard 💻😏🧙🪄🔥🔮
-    virtual ~Wizard();
 
-    // we love casting spells
-    void castSpell(const std::string spellName, int manaCost);
-    void restoreHealth();
+    Wizard(string name,
+           int level,
+           int experience, int strength, int vitality,
+           int dexterity, int intelligence,
+           int health, int points);
+
+
+    inline int getIntelligence() const { return this->intelligence; }
+
+    inline int getType() const { return this->type; }
+
+    void initializeWizard(const std::string name, playerType subclass);
+
+    ~Wizard();
+
+    inline void addIntelligence() { this->intelligence += 5; }
+
+	inline const int &getHealthPointsMax() const { return this->healthMax; }
+    
 };
 
 #endif

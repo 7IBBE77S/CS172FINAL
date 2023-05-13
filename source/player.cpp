@@ -5,7 +5,7 @@
 #include <cmath>
 Character::Character()
 {
-	this->characterClass = "";
+
 	this->distanceWandered = 0;
 
 	this->currency = 0;
@@ -39,16 +39,25 @@ Character::Character(string name, int distanceWandered,
 					 int dexterity, int intelligence,
 					 int health, int stamina, int points)
 {
-	//concept. Use derived classes in the future
-	 if (characterClass == "Wizard") {
-        this->name = name + " the Wizard";
-    } else if (characterClass == "Warrior"){
-		this->name = name + " the Warrior";
-	} else if (characterClass == "Rogue"){
-		this->name = name + " the Rogue";
-	}else {
-        this->name = name;
-    }
+
+	this->name = name;
+
+	//initialize subclass
+	this->setSubclassType(subclass);
+
+	// playerType subclass = getSubclassType();
+	// // set subclass type
+
+	// //subclass
+	// this->subclass = subclass;
+
+	
+
+	
+
+
+
+
 	this->distanceWandered = distanceWandered;
 
 	this->currency = currency;
@@ -80,23 +89,58 @@ Character::Character(string name, int distanceWandered,
 Character::~Character()
 {
 }
+playerType Character::getSubclassType() const
+{
+	return this->subclass;
+}
+
+void Character::setSubclassType(const playerType& subclass)
+{
+
+	// switch statement to set the subclass type
+	// switch (subclass)
+	// {
+	// case 0:
+	// 	this->subclass = WIZARD;
+	// 	break;
+	// case 1:
+	// 	this->subclass = WARRIOR;
+	// 	break;
+	// case 2:
+	// 	this->subclass = ROGUE;
+	// 	break;
+	// default:
+	// 	break;
+	// }
+	this->subclass = subclass;
+}
+
+void Character::restoreHealth()
+{
+	this->health += static_cast<int>(0.4 * health);
+}
 
 void Character::initialize(const string name)
 {
+	// starting travel distance
 	this->distanceWandered = 0;
 
 	// Starting shards
 	this->currency = 100;
 
+	// character name
 	this->name = name;
+	// set subclass type
+	this->setSubclassType(subclass);
+	// starting level
 	this->level = 1;
 	this->experience = 0;
 
+	// starting stats
 	this->strength = 5;
 	this->vitality = 5;
 	this->dexterity = 5;
 	this->intelligence = 5;
-
 	this->points = 0;
 
 	// add starting gear
@@ -106,7 +150,28 @@ void Character::initialize(const string name)
 	this->gauntlet = Gear(1, 1, "Leather Gauntlet", 1, 1, 1, 0);
 	this->leg_armor = Gear(1, 1, "Broken Leg Armor", 1, 1, 1, 0);
 
+	// this->setSubclassType(subclass);
+
 	this->updateStats();
+}
+std::string Character::playerTypeToString(playerType type) const
+{
+	// get the sub class type and return it as a string
+	switch (type)
+	{
+	case WIZARD:
+		return "Wizard";
+		break;
+	case WARRIOR:
+		return "Warrior";
+		break;
+	case ROGUE:
+		return "Rogue";
+		break;
+	default:
+		return "Unknown";
+		break;
+	}
 }
 
 void Character::printStats() const
@@ -114,6 +179,28 @@ void Character::printStats() const
 	cout << "*** Player Info ***"
 		 << "\n";
 	cout << "* Name: " << this->name << "\n";
+
+	//set the subclass type
+
+
+	    // Get the subclass type of the current character object
+    playerType subclassType = this->getSubclassType();
+
+    switch (subclassType) {
+        case WIZARD:
+            cout << "* Subclass: Wizard\n";
+            break;
+        case WARRIOR:
+            cout << "* Subclass: Warrior\n";
+            break;
+        case ROGUE:
+            cout << "* Subclass: Rogue\n";
+            break;
+        default:
+            cout << "* Subclass: Unknown\n";
+            break;
+    }
+
 	cout << "* Level: " << this->level << "\n";
 	cout << "* Experience: " << this->experience << "\n";
 	cout << "* Experience to next level: " << this->expGained << "\n";

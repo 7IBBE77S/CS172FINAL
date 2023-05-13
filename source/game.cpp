@@ -1,5 +1,8 @@
 #include "game.h"
 #include "player.h"
+#include "wizard.h"
+#include "rogue.h"
+#include "warrior.h"
 #include "weapon.h"
 #include "gear.h"
 using namespace menu;
@@ -37,6 +40,7 @@ void Game::startGame()
 	else if (in.is_open())
 	{
 		this->load();
+		// this->save();
 	}
 	// If no file exists, create a new character
 	else
@@ -45,15 +49,10 @@ void Game::startGame()
 		this->save();
 	}
 
-	// else
-	// {
-	// 	createCharacter();
-	// 	this->save();
-	// }
-
 	// if it is not empty, load the character
 
 	in.close();
+	this->save();
 }
 
 void Game::mainMenu()
@@ -260,10 +259,9 @@ void Game::createCharacter()
 	cin.ignore(255, '\n');
 	cout << endl;
 
-	
 	// TODO: Make this more interesting.
 	// the choice needs to be special and meaningful. Having starting gear isn't enough.
-	// Perhaps had unique bonuses to each class. Warrior might have increased health/strength, 
+	// Perhaps had unique bonuses to each class. Warrior might have increased health/strength,
 	// wizard increased intellect/damage, with reduced starting health (glass cannon?), rogue increased crit chance (not implemented yet) and accuracy.
 	// maybe add specific traits for each class, rage, focus, evasion, etc.
 
@@ -271,29 +269,46 @@ void Game::createCharacter()
 
 	switch (classChoice)
 	{
-	case 1:
-		// Wizard
-		player[loadedPlayer].setGearHead(Gear(1, 5, "Pointy hat", 1, 1, 1, 0));
-		player[loadedPlayer].setGearChest(Gear(1, 1, "Robes", 1, 10, 20, 5));
-		player[loadedPlayer].setWeapon(Weapon(1, 1, "Staff", 1, 5, 10, 3));
-		break;
+	case 1: // Wizard
 
-	case 2:
-		// Warrior
-		player[loadedPlayer].setGearHead(Gear(1, 1, "Horned Helmet", 1, 1, 1, 0));
-		player[loadedPlayer].setGearChest(Gear(1, 1, "Tatered Chest", 1, 1, 1, 0));
-		player[loadedPlayer].setWeapon(Weapon(1, 1, "Great sword", 1, 5, 10, 3));
+		wizard.push_back(Wizard());
+		loadedPlayer = wizard.size() - 1;
+		wizard[loadedPlayer].initializeWizard(name, playerType::WIZARD);
+
+		player[loadedPlayer].setSubclassType(playerType::WIZARD);
+		player[loadedPlayer].setSubclassType(static_cast<playerType>(classChoice - 1));
+
+		player[loadedPlayer] = wizard[loadedPlayer];
 
 		break;
+	case 2: // Warrior
 
-	case 3:
-		// Rogue
-		player[loadedPlayer].setGearHead(Gear(1, 1, "Cloak", 1, 1, 1, 0));
-		player[loadedPlayer].setGearChest(Gear(1, 1, "Leather Armor", 1, 1, 1, 0));
-		player[loadedPlayer].setWeapon(Weapon(1, 1, "Dagger", 1, 5, 10, 3));
+		warrior.push_back(Warrior());
+		loadedPlayer = warrior.size() - 1;
+		warrior[loadedPlayer].initializeWarrior(name, playerType::WARRIOR);
+
+		player[loadedPlayer].setSubclassType(playerType::WARRIOR);
+		player[loadedPlayer].setSubclassType(static_cast<playerType>(classChoice - 1));
+
+		player[loadedPlayer] = warrior[loadedPlayer];
+
 		break;
 
-	default:
+	case 3: // Rogue
+
+		// rogue.push_back(Rogue());
+		// loadedPlayer = rogue.size() - 1;
+		// rogue[loadedPlayer].initializeRogue(name, playerType::ROGUE);
+
+		// player[loadedPlayer].setSubclassType(playerType::ROGUE);
+		// player[loadedPlayer].setSubclassType(static_cast<playerType>(classChoice - 1));
+
+		// player[loadedPlayer] = rogue[loadedPlayer];
+
+		break;
+
+	default: // Default
+
 		break;
 	}
 }
@@ -418,7 +433,15 @@ void Game::characterMenu()
 
 		cout << menu::divider();
 
+		player[loadedPlayer].setSubclassType( player[loadedPlayer].getSubclassType());
+
+		// get subclass type
+		// player[loadedPlayer].getSubclassType();
+		// set subclass type
+
 		player[loadedPlayer].printStats();
+
+		// player already has a subclass, so display its stats
 
 		cout << menu::divider();
 

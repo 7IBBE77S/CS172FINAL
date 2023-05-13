@@ -5,14 +5,21 @@
 #include "inventory.h"
 #include "weapon.h"
 #include "gear.h"
+#include "monster.h"
 
 using namespace std;
 
-class  Character
+enum playerType
 {
-	//separate private and protected for derived access
-private:
-	std::string characterClass;
+	WIZARD,
+	WARRIOR,
+	ROGUE,
+};
+
+class Character
+{
+	// separate private and protected for derived access
+protected:
 	int distanceWandered;
 
 	Inventory inventory;
@@ -44,6 +51,8 @@ private:
 	int luck;
 
 	int points;
+	playerType subclass;
+	// std::string playerTypeToString;
 
 public:
 	Character();
@@ -55,10 +64,11 @@ public:
 	virtual ~Character();
 
 	void initialize(const std::string name);
+	// void initializeWizard(const std::string name);
 
 	// base starting gear and weapon function
-void setOs(std::string os);
-    std::string getOs();
+	void setOs(std::string os);
+	std::string getOs();
 	void printStats() const;
 	string to_String() const;
 	string getInventoryToString(bool shop = false);
@@ -72,8 +82,40 @@ void setOs(std::string os);
 	void removeItem(const int index);
 	const Item &getItem(const int index);
 
+	// default points for each class
+	// warrior
+	inline void addStrength() { this->strength += 5; }
+	// warrior
+	inline void addVitality() { this->vitality += 5; }
+	// rogue
+	inline void addDexterity() { this->dexterity += 5; }
+	// wizard
+	inline void addIntelligence() { this->intelligence += 5; }
+
+	// wizard ability
+	void restoreHealth();
+
+	// warrior ability
+	inline void heavyAttack(Monster *enemy)
+	{
+		enemy->Damaged(this->strength += (0.5 * this->strength));
+	}
+	// rogue ability
+	inline void weakenDebuff(Monster *enemy)
+	{
+		enemy->setDefense(enemy->getDefense() * 0.5);
+	}
+
+	void setSubclassType(const playerType &subclass); // Add this line
+	playerType getSubclassType() const;
+
+	//playertype to string
+
+	std::string playerTypeToString(playerType subclass) const;
+
 	inline const int &getDistTravel() const { return this->distanceWandered; }
 	inline const std::string &getName() const { return this->name; }
+
 	inline const int &getLevel() const { return this->level; }
 	inline const int &getExperience() const { return this->experience; }
 	inline const int &getExperienceNext() const { return this->expGained; }
@@ -102,6 +144,13 @@ void setOs(std::string os);
 	inline void setGearChest(Gear chest_armor) { this->chest_armor = chest_armor; }
 	inline void setGearArms(Gear gauntlet) { this->gauntlet = gauntlet; }
 	inline void setGearLegs(Gear leg_armor) { this->leg_armor = leg_armor; }
+	inline void setStats(const int &strength, const int &vitality, const int &dexterity, const int &intelligence)
+	{
+		this->strength = strength;
+		this->vitality = vitality;
+		this->dexterity = dexterity;
+		this->intelligence = intelligence;
+	}
 };
 
 #endif

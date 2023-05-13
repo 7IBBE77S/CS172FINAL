@@ -3,6 +3,10 @@
 
 #include "includes.h"
 #include "event.h"
+#include "player.h"
+#include "wizard.h"
+#include "warrior.h"
+#include "rogue.h"
 
 using namespace std;
 
@@ -14,9 +18,21 @@ private:
 
 	int loadedPlayer;
 	std::vector<Character> player;
+	//wizard
+	std::vector<Wizard> wizard;
+	//warrior
+	std::vector<Warrior> warrior;
+	//rogue
+	std::vector<Rogue> rogue;
+
+
+
+
 	std::string fileName;
 
 	Dynamic<Monster> enemies;
+
+
 
 public:
 	Game();
@@ -35,7 +51,6 @@ public:
 	void rest();
 
 	inline bool isPlaying() const { return this->playing; }
-
 
 	void clearTerminal()
 	{

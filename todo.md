@@ -23,6 +23,7 @@
 - [] maybe simplify/clean up player.cpp,event.cpp, and game.cpp. They are getting a little messy and the readability is lacking.
 - [] unequip gear and it will go back into inventory.
 - [] fix negative values on items.
+- [] have different monster types
 - [] DOCUMENTATION
 
 

@@ -1,20 +1,38 @@
+
+
 #ifndef WARRIOR_H
 #define WARRIOR_H
 
 #include "player.h"
 
-// test/example class. Not implemented.
+
 class Warrior : public Character
 {
 private:
-    int rage; // maybe a bar will fill up and then you can use a special ability
+    int type;
 
 public:
     Warrior();
-    virtual ~Warrior();
 
-    void performHeavyAttack();
-    void increaseRage(int amount);
+    Warrior(string name,
+           int level,
+           int experience, int strength, int vitality,
+           int dexterity, int intelligence,
+           int health, int points);
+
+
+    inline int getStrength() const { return this->strength; }
+
+    inline int getType() const { return this->type; }
+
+    void initializeWarrior(const std::string name, playerType subclass);
+
+    ~Warrior();
+
+    inline void addStrength() { this->strength += 5; }
+
+    
 };
 
 #endif
+

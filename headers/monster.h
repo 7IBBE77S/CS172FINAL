@@ -46,6 +46,7 @@ public:
 	int getHealthPoint() const { return this->health; }
 	int getHealthPointMax() const { return this->healthMax; }
 	int getDefense() const { return this->defense; }
+	int setDefense(int defense) { return this->defense = defense; }
 	int getAccuracy() const { return this->accuracy; }
 };
 

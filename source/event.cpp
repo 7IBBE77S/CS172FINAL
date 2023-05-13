@@ -4,6 +4,7 @@
 // #include <term.h>
 #include <map>
 #include <string>
+#include "wizard.h"
 using namespace std;
 
 struct Colors
@@ -278,6 +279,11 @@ void Event::shop(Character &player)
 
 void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 {
+	
+	
+	int maxHealth = player.getHealthPointsMax();
+	int health = player.getHealthPoints();
+
 	bool playerTurn = false;
 	int choice = 0;
 
@@ -312,6 +318,16 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 	{
 		if (playerTurn && !playerDefeated)
 		{
+			player.setSubclassType(playerType::WIZARD);
+			player.setSubclassType(playerType::WARRIOR);
+			player.setSubclassType(playerType::ROGUE);
+
+
+			
+			
+			
+
+
 
 			cout << "Prepare for battle!"
 				 << endl;
@@ -329,6 +345,20 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 				 << "\n";
 			cout << "3: Use Item"
 				 << "\n";
+			if (player.getSubclassType() == playerType::WIZARD)
+			{
+				cout << "4: Restore health"
+					 << "\n";
+			} else if (player.getSubclassType() == playerType::WARRIOR)
+			{
+				cout << "4: Heavy Attack"
+					 << "\n";
+			} else if (player.getSubclassType() == playerType::ROGUE)
+			{
+				cout << "4: Attack with dagger"
+					 << "\n";
+			}
+
 			cout << "0: Escape"
 				 << "\n";
 			cout << endl;
@@ -338,7 +368,6 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 			cin >> choice;
 
 			std::string healthColor;
-			int health = player.getHealthPoints();
 			std::string healthBars;
 
 			if (choice == 2)
@@ -351,7 +380,6 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 			}
 			else
 			{
-				int maxHealth = player.getHealthPointsMax();
 
 				if (health >= maxHealth * 0.75)
 				{
@@ -404,9 +432,9 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 			}
 
 			// If using defense, the health bar is cyan
-			cout << "Health: " << healthColor << health << colors.Clean << " / " << player.getHealthPointsMax() << " " << healthColor << "|" << healthBars << "|" << colors.Clean << endl;
+			cout << "Health: " << healthColor << health << colors.Clean << " / " << maxHealth << " " << healthColor << "|" << healthBars << "|" << colors.Clean << endl;
 
-			while (cin.fail() || choice > 3 || choice < 0)
+			while (cin.fail() || choice > 4 || choice < 0)
 			{
 				clearTerminal();
 
@@ -424,6 +452,19 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 					 << "\n";
 				cout << "3: Use Item"
 					 << "\n";
+				if (player.getSubclassType() == playerType::WIZARD)
+				{
+					cout << "4: Restore health"
+						 << "\n";
+				} else if(player.getSubclassType() == playerType::WARRIOR)
+				{
+					cout << "4: Heavy Attack"
+						 << "\n";
+				} else if(player.getSubclassType() == playerType::ROGUE)
+				{
+					cout << "4: Attack with dagger"
+						 << "\n";
+				}
 				cout << "0: Escape"
 					 << "\n";
 				cout << endl;
@@ -580,6 +621,28 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 			case 3:
 
 				break;
+			case 4:
+				if (player.getSubclassType() == playerType::WIZARD)
+				{
+					if (health == maxHealth)
+					{
+						cout << "You are already at full health! \n\n";
+						break;
+					}
+					else
+					{
+						player.restoreHealth();
+						cout << "You have been healed! \n\n";
+						break;
+					}
+					
+				} else if (player.getSubclassType() == playerType::WARRIOR)
+				{
+					player.heavyAttack(&enemies[choice]);
+					cout << "You used heavy attack! \n\n";
+					break;
+				}
+				
 
 			default:
 				break;
@@ -628,10 +691,8 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 
 					cout << "Damage: " << damage << "!" << endl;
 					std::string healthColor;
-					int health = player.getHealthPoints();
 					std::string healthBars;
-					
-					int maxHealth = player.getHealthPointsMax();
+
 
 					if (choice == 2)
 					{
@@ -699,7 +760,7 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 					}
 
 					// If using defense, the health bar is cyan
-					cout << "Health: " << healthColor << health << colors.Clean << " / " << player.getHealthPointsMax() << " " << healthColor << "|" << healthBars << "|" << colors.Clean << endl;
+					cout << "Health: " << healthColor << health << colors.Clean << " / " << maxHealth << " " << healthColor << "|" << healthBars << "|" << colors.Clean << endl;
 
 					if (!player.isAlive())
 					{

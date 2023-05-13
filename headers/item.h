@@ -19,7 +19,7 @@ enum rarity
 
 class Item
 {
-private:
+protected:
 	int itemType;
 	std::string name;
 	int level;

@@ -8,13 +8,12 @@
 
 void clearTerminal()
 {
-#ifdef __APPLE__
-    std::system("clear");
-
-#else
-    std::system("cls");
-
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+	system("cls");
+#elif __APPLE__
+	system("clear");
+#elif __linux__
+	system("clear");
 #endif
 }
-
 #endif
