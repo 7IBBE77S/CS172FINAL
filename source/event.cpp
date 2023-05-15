@@ -326,8 +326,6 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 	cout << "You have stumbled upon monsters!"
 		 << endl;
 
-	int maxHealth = player.getHealthPointsMax();
-	int health = player.getHealthPoints();
 	// get player subclass
 
 	// playerType subclass = player.getSubclassType();
@@ -409,6 +407,8 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 			cin >> choice;
 
 			std::string healthColor;
+			int health = player.getHealthPoints();
+
 			std::string healthBars;
 
 			if (choice == 2)
@@ -422,37 +422,37 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 			else
 			{
 
-				if (health >= maxHealth * 0.75)
+				if (health >= player.getHealthPointsMax() * 0.75)
 				{
 					for (int i = 0; i < health; i++)
 					{
 						healthBars += "#";
 					}
-					for (int i = health; i < maxHealth; i++)
+					for (int i = health; i < player.getHealthPointsMax(); i++)
 					{
 						healthBars += "_";
 					}
 					healthColor = colors.White;
 				}
-				else if (health >= maxHealth / 2)
+				else if (health >= player.getHealthPointsMax() / 2)
 				{
 					for (int i = 0; i < health; i++)
 					{
 						healthBars += "#";
 					}
-					for (int i = health; i < maxHealth; i++)
+					for (int i = health; i < player.getHealthPointsMax(); i++)
 					{
 						healthBars += "_";
 					}
 					healthColor = colors.Yellow;
 				}
-				else if (health >= maxHealth / 4)
+				else if (health >= player.getHealthPointsMax() / 4)
 				{
 					for (int i = 0; i < health; i++)
 					{
 						healthBars += "#";
 					}
-					for (int i = health; i < maxHealth; i++)
+					for (int i = health; i < player.getHealthPointsMax(); i++)
 					{
 						healthBars += "_";
 					}
@@ -464,7 +464,7 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 					{
 						healthBars += "#";
 					}
-					for (int i = health; i < maxHealth; i++)
+					for (int i = health; i < player.getHealthPointsMax(); i++)
 					{
 						healthBars += "_";
 					}
@@ -473,7 +473,7 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 			}
 
 			// If using defense, the health bar is cyan
-			cout << "Health: " << healthColor << health << colors.Clean << " / " << maxHealth << " " << healthColor << "|" << healthBars << "|" << colors.Clean << endl;
+			cout << "Health: " << healthColor << health << colors.Clean << " / " << player.getHealthPointsMax() << " " << healthColor << "|" << healthBars << "|" << colors.Clean << endl;
 
 			while (cin.fail() || choice > 4 || choice < 0)
 			{
@@ -667,7 +667,7 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 			case 4:
 				if (player.getSubclassType() == playerType::WIZARD)
 				{
-					if (health == maxHealth)
+					if (health == player.getHealthPointsMax())
 					{
 						cout << "You are already at full health! \n\n";
 						break;
@@ -738,6 +738,8 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 
 					cout << "Damage: " << damage << "!" << endl;
 					std::string healthColor;
+					int health = player.getHealthPoints();
+
 					std::string healthBars;
 
 					if (choice == 2)
@@ -746,7 +748,7 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 						{
 							healthBars += "#";
 						}
-						for (int i = health; i < maxHealth; i++)
+						for (int i = health; i < player.getHealthPointsMax(); i++)
 						{
 							healthBars += "_";
 						}
@@ -755,37 +757,37 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 					else
 					{
 
-						if (health >= maxHealth * 0.75)
+						if (health >= player.getHealthPointsMax() * 0.75)
 						{
 							for (int i = 0; i < health; i++)
 							{
 								healthBars += "#";
 							}
-							for (int i = health; i < maxHealth; i++)
+							for (int i = health; i < player.getHealthPointsMax(); i++)
 							{
 								healthBars += "_";
 							}
 							healthColor = colors.White;
 						}
-						else if (health >= maxHealth / 2)
+						else if (health >= player.getHealthPointsMax() / 2)
 						{
 							for (int i = 0; i < health; i++)
 							{
 								healthBars += "#";
 							}
-							for (int i = health; i < maxHealth; i++)
+							for (int i = health; i < player.getHealthPointsMax(); i++)
 							{
 								healthBars += "_";
 							}
 							healthColor = colors.Yellow;
 						}
-						else if (health >= maxHealth / 4)
+						else if (health >= player.getHealthPointsMax() / 4)
 						{
 							for (int i = 0; i < health; i++)
 							{
 								healthBars += "#";
 							}
-							for (int i = health; i < maxHealth; i++)
+							for (int i = health; i < player.getHealthPointsMax(); i++)
 							{
 								healthBars += "_";
 							}
@@ -797,7 +799,7 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 							{
 								healthBars += "#";
 							}
-							for (int i = health; i < maxHealth; i++)
+							for (int i = health; i < player.getHealthPointsMax(); i++)
 							{
 								healthBars += "_";
 							}
@@ -806,7 +808,7 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 					}
 
 					// If using defense, the health bar is cyan
-					cout << "Health: " << healthColor << health << colors.Clean << " / " << maxHealth << " " << healthColor << "|" << healthBars << "|" << colors.Clean << endl;
+					cout << "Health: " << healthColor << health << colors.Clean << " / " << player.getHealthPointsMax() << " " << healthColor << "|" << healthBars << "|" << colors.Clean << endl;
 
 					if (!player.isAlive())
 					{
@@ -1047,219 +1049,234 @@ void Event::boss(Character &player, Dynamic<Monster> &enemies)
 						enemies.remove(0);
 					}
 				}
-					break;
+				break;
 
-				case 1:
+			case 1:
 
-					// Select enemy
+				// Select enemy
+				cout << "Select enemy: "
+					 << endl;
+
+				for (int i = 0; i < enemies.size(); i++)
+				{
+					cout << i << ": "
+						 << "Level: " << enemies[i].getLevel() << " - "
+						 << "healthPoints: " << enemies[i].getHealthPoint() << "/" << enemies[i].getHealthPointMax() << " - "
+						 << "defense: " << enemies[i].getDefense() << " - "
+						 << "Accuracy: " << enemies[i].getAccuracy() << " - "
+						 << "Damage: " << enemies[i].getMinAttack() << " - " << enemies[i].getMaxAttack() << "\n";
+				}
+
+				cout << endl;
+				cout << "Choice: ";
+
+				cin >> choice;
+
+				while (cin.fail() || choice >= enemies.size() || choice < 0)
+				{
+					cout << "Try again."
+						 << "\n";
+					cin.clear();
+					cin.ignore(100, '\n');
+
 					cout << "Select enemy: "
 						 << endl;
-
-					for (int i = 0; i < enemies.size(); i++)
-					{
-						cout << i << ": "
-							 << "Level: " << enemies[i].getLevel() << " - "
-							 << "healthPoints: " << enemies[i].getHealthPoint() << "/" << enemies[i].getHealthPointMax() << " - "
-							 << "defense: " << enemies[i].getDefense() << " - "
-							 << "Accuracy: " << enemies[i].getAccuracy() << " - "
-							 << "Damage: " << enemies[i].getMinAttack() << " - " << enemies[i].getMaxAttack() << "\n";
-					}
-
-					cout << endl;
 					cout << "Choice: ";
-
 					cin >> choice;
+				}
 
-					while (cin.fail() || choice >= enemies.size() || choice < 0)
+				cin.ignore(100, '\n');
+				cout << endl;
+
+				// Attack roll
+				combatTotal = enemies[choice].getDefense() + player.getAccuracy();
+				enemyTotal = enemies[choice].getDefense() / (double)combatTotal * 100;
+				playerTotal = player.getAccuracy() / (double)combatTotal * 100;
+				combatRollPlayer = rand() % playerTotal + 1;
+				combatRollMonster = rand() % enemyTotal + 1;
+
+				cout << "Combat total: " << combatTotal << "\n";
+				cout << "Monster percent: " << enemyTotal << "\n";
+				cout << "Player percent: " << playerTotal << endl;
+				cout << "Player roll: " << combatRollPlayer << "\n";
+				cout << "Monster roll: " << combatRollMonster << endl;
+
+				if (combatRollPlayer > combatRollMonster) // Hit
+				{
+					cout << "HIT! "
+						 << endl;
+
+					damage = player.getDamage();
+					enemies[choice].Damaged(damage);
+
+					cout << "Damage: " << damage << "!"
+						 << endl;
+
+					if (!enemies[choice].isAlive())
 					{
-						cout << "Try again."
-							 << "\n";
-						cin.clear();
-						cin.ignore(100, '\n');
-
-						cout << "Select enemy: "
+						cout << "Monster Slain!"
 							 << endl;
-						cout << "Choice: ";
-						cin >> choice;
-					}
+						gainExperience = enemies[choice].getExperience();
+						player.gainExperience(gainExperience);
+						gainShards = rand() % enemies[choice].getLevel() * 10 + 1;
+						player.gainShards(gainShards);
+						cout << "Experience Gained: " << gainExperience << "\n";
+						cout << "Shards Gained: " << gainShards << endl;
 
-					cin.ignore(100, '\n');
-					cout << endl;
+						// Item roll
+						int roll = rand() % 100 + 1;
+						int rarity = -1;
 
-					// Attack roll
-					combatTotal = enemies[choice].getDefense() + player.getAccuracy();
-					enemyTotal = enemies[choice].getDefense() / (double)combatTotal * 100;
-					playerTotal = player.getAccuracy() / (double)combatTotal * 100;
-					combatRollPlayer = rand() % playerTotal + 1;
-					combatRollMonster = rand() % enemyTotal + 1;
-
-					cout << "Combat total: " << combatTotal << "\n";
-					cout << "Monster percent: " << enemyTotal << "\n";
-					cout << "Player percent: " << playerTotal << endl;
-					cout << "Player roll: " << combatRollPlayer << "\n";
-					cout << "Monster roll: " << combatRollMonster << endl;
-
-					if (combatRollPlayer > combatRollMonster) // Hit
-					{
-						cout << "HIT! "
-							 << endl;
-
-						damage = player.getDamage();
-						enemies[choice].Damaged(damage);
-
-						cout << "Damage: " << damage << "!"
-							 << endl;
-
-						if (!enemies[choice].isAlive())
+						// Rarity determination
+						if (roll > 20)
 						{
-							cout << "Monster Slain!"
-								 << endl;
-							gainExperience = enemies[choice].getExperience();
-							player.gainExperience(gainExperience);
-							gainShards = rand() % enemies[choice].getLevel() * 10 + 1;
-							player.gainShards(gainShards);
-							cout << "Experience Gained: " << gainExperience << "\n";
-							cout << "Shards Gained: " << gainShards << endl;
-
-							// Item roll
-							int roll = rand() % 100 + 1;
-							int rarity = -1;
-
-							// Rarity determination
-							if (roll > 20)
+							// Common
+							rarity = 0;
+							if (roll > 30)
 							{
-								// Common
-								rarity = 0;
-								if (roll > 30)
-								{
-									// Uncommon
-									rarity = 1;
-									if (roll > 50)
-									{ // Rare
-										rarity = 2;
-										if (roll > 70)
+								// Uncommon
+								rarity = 1;
+								if (roll > 50)
+								{ // Rare
+									rarity = 2;
+									if (roll > 70)
+									{
+										// Legendary
+										rarity = 3;
+										if (roll > 90)
 										{
-											// Legendary
-											rarity = 3;
-											if (roll > 90)
-											{
-												// Mythic
-												rarity = 4;
-											}
+											// Mythic
+											rarity = 4;
 										}
 									}
 								}
 							}
-
-							if (roll >= 0)
-							{
-								roll = rand() % 100 + 1;
-
-								if (roll > 50)
-								{
-									Weapon tempW(player.getLevel(), rarity);
-									player.addItem(tempW);
-									cout << "A weapon drop."
-										 << "\n";
-								}
-								else
-								{
-									Gear tempG(player.getLevel(), rarity);
-									player.addItem(tempG);
-									cout << "A piece of gear drop."
-										 << "\n";
-								}
-							}
-
-							enemies.remove(choice);
 						}
+
+						if (roll >= 0)
+						{
+							roll = rand() % 100 + 1;
+
+							if (roll > 50)
+							{
+								Weapon tempW(player.getLevel(), rarity);
+								player.addItem(tempW);
+								cout << "A weapon drop."
+									 << "\n";
+							}
+							else
+							{
+								Gear tempG(player.getLevel(), rarity);
+								player.addItem(tempG);
+								cout << "A piece of gear drop."
+									 << "\n";
+							}
+						}
+
+						enemies.remove(choice);
+					}
+				}
+				else
+				{
+					cout << "Monster dodged attack! \n\n";
+				}
+
+				break;
+
+			case 2:
+
+				break;
+
+			case 3:
+
+				break;
+			case 4:
+				if (player.getSubclassType() == playerType::WIZARD)
+				{
+					if (health == maxHealth)
+					{
+						cout << "You are already at full health! \n\n";
+						break;
 					}
 					else
 					{
-						cout << "Monster dodged attack! \n\n";
-					}
-
-					break;
-
-				case 2:
-
-					break;
-
-				case 3:
-
-					break;
-				case 4:
-					if (player.getSubclassType() == playerType::WIZARD)
-					{
-						if (health == maxHealth)
-						{
-							cout << "You are already at full health! \n\n";
-							break;
-						}
-						else
-						{
-							player.restoreHealth();
-							cout << "You have been healed! \n\n";
-							break;
-						}
-					}
-					else if (player.getSubclassType() == playerType::WARRIOR)
-					{
-						player.heavyAttack(&enemies[choice]);
-						cout << "You used heavy attack! \n\n";
+						player.restoreHealth();
+						cout << "You have been healed! \n\n";
 						break;
 					}
-
-				default:
+				}
+				else if (player.getSubclassType() == playerType::WARRIOR)
+				{
+					player.heavyAttack(&enemies[choice]);
+					cout << "You used heavy attack! \n\n";
 					break;
 				}
 
-				// End turn
-				playerTurn = false;
+			default:
+				break;
 			}
-			else if (!playerTurn && !playerDefeated && !escape && !enemiesDefeated)
-			{
-				cout << "Monsters turn!"
-					 << "\n";
 
+			// End turn
+			playerTurn = false;
+		}
+		else if (!playerTurn && !playerDefeated && !escape && !enemiesDefeated)
+		{
+			cout << "Monsters turn!"
+				 << "\n";
+
+			cout << "Continue..."
+				 << endl;
+			cin.get();
+			clearTerminal();
+
+			for (int i = 0; i < enemies.size(); i++)
+			{
 				cout << "Continue..."
 					 << endl;
 				cin.get();
 				clearTerminal();
 
-				for (int i = 0; i < enemies.size(); i++)
+				cout << "Monster: " << i << endl;
+
+				combatTotal = enemies[i].getAccuracy() + (player.getDefense() + player.getAdditionalDefense());
+				enemyTotal = enemies[i].getAccuracy() / (double)combatTotal * 100;
+				playerTotal = (player.getDefense() + player.getAdditionalDefense()) / (double)combatTotal * 100;
+				combatRollPlayer = rand() % playerTotal + 1;
+				combatRollMonster = rand() % enemyTotal + 1;
+
+				cout << "Combat total: " << combatTotal << "\n";
+				cout << "Monster percent: " << enemyTotal << "\n";
+				cout << "Player percent: " << playerTotal << endl;
+				cout << "Player roll: " << combatRollPlayer << "\n";
+				cout << "Monster roll: " << combatRollMonster << endl;
+
+				if (combatRollPlayer < combatRollMonster)
 				{
-					cout << "Continue..."
-						 << endl;
-					cin.get();
-					clearTerminal();
+					cout << "HIT! " << endl;
 
-					cout << "Monster: " << i << endl;
+					damage = enemies[i].getDamage();
+					player.Damaged(damage);
 
-					combatTotal = enemies[i].getAccuracy() + (player.getDefense() + player.getAdditionalDefense());
-					enemyTotal = enemies[i].getAccuracy() / (double)combatTotal * 100;
-					playerTotal = (player.getDefense() + player.getAdditionalDefense()) / (double)combatTotal * 100;
-					combatRollPlayer = rand() % playerTotal + 1;
-					combatRollMonster = rand() % enemyTotal + 1;
+					cout << "Damage: " << damage << "!" << endl;
+					std::string healthColor;
+					std::string healthBars;
 
-					cout << "Combat total: " << combatTotal << "\n";
-					cout << "Monster percent: " << enemyTotal << "\n";
-					cout << "Player percent: " << playerTotal << endl;
-					cout << "Player roll: " << combatRollPlayer << "\n";
-					cout << "Monster roll: " << combatRollMonster << endl;
-
-					if (combatRollPlayer < combatRollMonster)
+					if (choice == 2)
 					{
-						cout << "HIT! " << endl;
+						for (int i = 0; i < health; i++)
+						{
+							healthBars += "#";
+						}
+						for (int i = health; i < maxHealth; i++)
+						{
+							healthBars += "_";
+						}
+						healthColor = colors.Cyan;
+					}
+					else
+					{
 
-						damage = enemies[i].getDamage();
-						player.Damaged(damage);
-
-						cout << "Damage: " << damage << "!" << endl;
-						std::string healthColor;
-						std::string healthBars;
-
-						if (choice == 2)
+						if (health >= maxHealth * 0.75)
 						{
 							for (int i = 0; i < health; i++)
 							{
@@ -1269,89 +1286,74 @@ void Event::boss(Character &player, Dynamic<Monster> &enemies)
 							{
 								healthBars += "_";
 							}
-							healthColor = colors.Cyan;
+							healthColor = colors.White;
+						}
+						else if (health >= maxHealth / 2)
+						{
+							for (int i = 0; i < health; i++)
+							{
+								healthBars += "#";
+							}
+							for (int i = health; i < maxHealth; i++)
+							{
+								healthBars += "_";
+							}
+							healthColor = colors.Yellow;
+						}
+						else if (health >= maxHealth / 4)
+						{
+							for (int i = 0; i < health; i++)
+							{
+								healthBars += "#";
+							}
+							for (int i = health; i < maxHealth; i++)
+							{
+								healthBars += "_";
+							}
+							healthColor = colors.LightRed;
 						}
 						else
 						{
-
-							if (health >= maxHealth * 0.75)
+							for (int i = 0; i < health; i++)
 							{
-								for (int i = 0; i < health; i++)
-								{
-									healthBars += "#";
-								}
-								for (int i = health; i < maxHealth; i++)
-								{
-									healthBars += "_";
-								}
-								healthColor = colors.White;
+								healthBars += "#";
 							}
-							else if (health >= maxHealth / 2)
+							for (int i = health; i < maxHealth; i++)
 							{
-								for (int i = 0; i < health; i++)
-								{
-									healthBars += "#";
-								}
-								for (int i = health; i < maxHealth; i++)
-								{
-									healthBars += "_";
-								}
-								healthColor = colors.Yellow;
+								healthBars += "_";
 							}
-							else if (health >= maxHealth / 4)
-							{
-								for (int i = 0; i < health; i++)
-								{
-									healthBars += "#";
-								}
-								for (int i = health; i < maxHealth; i++)
-								{
-									healthBars += "_";
-								}
-								healthColor = colors.LightRed;
-							}
-							else
-							{
-								for (int i = 0; i < health; i++)
-								{
-									healthBars += "#";
-								}
-								for (int i = health; i < maxHealth; i++)
-								{
-									healthBars += "_";
-								}
-								healthColor = colors.Red;
-							}
-						}
-
-						// If using defense, the health bar is cyan
-						cout << "Health: " << healthColor << health << colors.Clean << " / " << maxHealth << " " << healthColor << "|" << healthBars << "|" << colors.Clean << endl;
-
-						if (!player.isAlive())
-						{
-							cout << "YOU DIED"
-								 << endl;
-							cout << "Goodbye World..." << endl;
-							playerDefeated = true;
+							healthColor = colors.Red;
 						}
 					}
-					else
+
+					// If using defense, the health bar is cyan
+					cout << "Health: " << healthColor << health << colors.Clean << " / " << maxHealth << " " << healthColor << "|" << healthBars << "|" << colors.Clean << endl;
+
+					if (!player.isAlive())
 					{
-						cout << "You dodged the attack! \n\n";
+						cout << "YOU DIED"
+							 << endl;
+						cout << "Goodbye World..." << endl;
+						playerDefeated = true;
 					}
 				}
-
-				playerTurn = true;
+				else
+				{
+					cout << "You dodged the attack! \n\n";
+				}
 			}
 
-			if (!player.isAlive())
-			{
-				playerDefeated = true;
-			}
-			// else all enemies are defeated meaning you cant be dead
-			else if (enemies.size() <= 0)
-			{
-				enemiesDefeated = true;
-			}
+			playerTurn = true;
+		}
+
+		if (!player.isAlive())
+		{
+			playerDefeated = true;
+		}
+		// else all enemies are defeated meaning you cant be dead
+		else if (enemies.size() <= 0)
+		{
+			enemiesDefeated = true;
 		}
 	}
+}

@@ -1,3 +1,6 @@
-Nic 0 100 1 0 3 4 7 10 28 7 0 0 Staff 1 0 1 1 1 5 1 Hood 1 0 1 1 1 1 1 Robe 1 0 1 1 1 1 1 Gloves 1 0 1 1 1 1 1 Trousers 1 0 1 1 1 1 
+test4 0 100 1 0 3 4 7 10 28 7 0 0 Staff 1 0 1 1 1 5 1 Hood 1 0 1 1 1 1 1 Robe 1 0 1 1 1 1 1 Gloves 1 0 1 1 1 1 1 Trousers 1 0 1 1 1 1 
+
+
+test4 0 100 1 0 5 5 5 5 35 8 0 0 Rusty Sword 1 0 1 1 1 5 1 Old Helmet 1 0 1 1 1 1 1 Battle worn Chest Armor 1 0 1 1 1 1 1 Leather Gauntlet 1 0 1 1 1 1 1 Broken Leg Armor 1 0 1 1 1 1 
 
 
