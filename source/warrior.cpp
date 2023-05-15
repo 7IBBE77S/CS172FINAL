@@ -97,6 +97,8 @@ void Warrior::initializeWarrior(const std::string name, playerType subclass)
     this->chest_armor = Gear(1, 1, "Battle Worn Vest", 1, 1, 1, 0);
     this->gauntlet = Gear(1, 1, "Iron Gauntlets", 1, 1, 1, 0);
     this->leg_armor = Gear(1, 1, "Iron Greaves", 1, 1, 1, 0);
+    this->setSubclassType(subclass);
+
     this->updateStats();
 }
 

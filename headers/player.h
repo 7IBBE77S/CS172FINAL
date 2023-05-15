@@ -31,6 +31,8 @@ protected:
 	int currency;
 
 	std::string name;
+	playerType subclass;
+
 	int level;
 	int experience;
 	int expGained;
@@ -51,8 +53,6 @@ protected:
 	int luck;
 
 	int points;
-	playerType subclass;
-	// std::string playerTypeToString;
 
 public:
 	Character();
@@ -93,7 +93,11 @@ public:
 	inline void addIntelligence() { this->intelligence += 5; }
 
 	// wizard ability
-	void restoreHealth();
+	inline void restoreHealth() {
+		this->health += (this->intelligence * 0.5);
+		if (this->health > this->healthMax)
+			this->health = this->healthMax;
+	};
 
 	// warrior ability
 	inline void heavyAttack(Monster *enemy)
@@ -106,10 +110,10 @@ public:
 		enemy->setDefense(enemy->getDefense() * 0.5);
 	}
 
-	void setSubclassType(const playerType &subclass); // Add this line
+	void setSubclassType(const playerType subclass);
 	playerType getSubclassType() const;
 
-	//playertype to string
+	bool isSubclassType(playerType subclass);
 
 	std::string playerTypeToString(playerType subclass) const;
 

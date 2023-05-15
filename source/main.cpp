@@ -24,6 +24,7 @@ int main ()
 {
 	srand(time(NULL));
 
+
 	Game game;
 
 	game.clearTerminal();

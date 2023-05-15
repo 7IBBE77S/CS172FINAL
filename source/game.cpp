@@ -39,6 +39,7 @@ void Game::startGame()
 	// If a file does exist, load the character
 	else if (in.is_open())
 	{
+
 		this->load();
 		// this->save();
 	}
@@ -433,11 +434,7 @@ void Game::characterMenu()
 
 		cout << menu::divider();
 
-		player[loadedPlayer].setSubclassType( player[loadedPlayer].getSubclassType());
-
-		// get subclass type
-		// player[loadedPlayer].getSubclassType();
-		// set subclass type
+		// get the subclass type of the player
 
 		player[loadedPlayer].printStats();
 
@@ -553,6 +550,8 @@ void Game::save()
 	outFile.close();
 }
 
+
+//TODO: fix character not loading subclass data properly
 void Game::load()
 {
 	ifstream inFile(fileName);
@@ -560,6 +559,8 @@ void Game::load()
 	this->player.clear();
 
 	string name = "";
+	playerType subclass;
+
 	int distanceWandered = 0;
 	int currency = 0;
 	int level = 0;
@@ -594,14 +595,20 @@ void Game::load()
 		// read in lines from file
 		while (getline(inFile, line))
 		{
+				int subclassIndex;
+			inFile >> subclassIndex;
+
+		
+
 
 			str.str(line);
-			str >> name >> distanceWandered >> currency >> level >> experience >> strength >> vitality >> dexterity >> intelligence >> health >> stamina >> points;
+			// TODO: add subclass data
+			str >> name >> distanceWandered >> currency >> level >>
+				experience >> strength >> vitality >> dexterity >> intelligence >>
+				health >> stamina >> points;
 
-			// Create player
-			Character temp(name, distanceWandered, currency, level,
-						   experience, strength, vitality, dexterity, intelligence,
-						   health, stamina, points);
+			// Create player TODO: add subclass data
+			Character temp(name, distanceWandered, currency, level, experience, strength, vitality, dexterity, intelligence, health, stamina, points);
 
 			// String Weapon
 			str >>
@@ -643,6 +650,29 @@ void Game::load()
 
 			Gear armor_legs(type, defense, name, level, buyValue, sellValue, rarity);
 
+		   //Subclass string
+
+		   str >> subclassIndex;
+
+		   			switch (subclassIndex)
+
+			{
+			case 0:
+				subclass = playerType::WIZARD;
+				break;
+			case 1:
+				subclass = playerType::WARRIOR;
+				break;
+			case 2:
+
+				subclass = playerType::ROGUE;
+				break;
+
+			default:
+				subclass = playerType::WIZARD; // Default to wizard subclass if invalid index
+				break;
+			}
+
 			// Set armor
 			temp.setGearHead(helmet);
 			temp.setGearChest(chest_armor);
@@ -651,6 +681,9 @@ void Game::load()
 
 			// Set weapon
 			temp.setWeapon(weapon);
+
+			// Set Subclass
+			temp.setSubclassType(subclass);
 
 			// Add Inventory Items
 			str.clear();

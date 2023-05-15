@@ -279,10 +279,18 @@ void Event::shop(Character &player)
 
 void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 {
-	
-	
+
 	int maxHealth = player.getHealthPointsMax();
 	int health = player.getHealthPoints();
+	//get player subclass
+
+	playerType subclass = player.getSubclassType();
+	//player type to string
+
+	
+
+
+	std::cout << "subclass: " << player.playerTypeToString(subclass)<< std::endl;
 
 	bool playerTurn = false;
 	int choice = 0;
@@ -313,21 +321,23 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 	int combatTotal = 0;
 	int combatRollPlayer = 0;
 	int combatRollMonster = 0;
-
+	// if (player.isSubclassType(playerType::WIZARD))
+	// {
+	// 	player.setSubclassType(playerType::WIZARD);
+	// } 
+	// else if (player.isSubclassType(playerType::WARRIOR))
+	// {
+	// 	player.setSubclassType(playerType::WARRIOR);
+	// }
+	// else if (player.isSubclassType(playerType::ROGUE))
+	// {
+	// 	player.setSubclassType(playerType::ROGUE);
+	// }
+	
 	while (!escape && !playerDefeated && !enemiesDefeated)
 	{
 		if (playerTurn && !playerDefeated)
 		{
-			player.setSubclassType(playerType::WIZARD);
-			player.setSubclassType(playerType::WARRIOR);
-			player.setSubclassType(playerType::ROGUE);
-
-
-			
-			
-			
-
-
 
 			cout << "Prepare for battle!"
 				 << endl;
@@ -349,11 +359,13 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 			{
 				cout << "4: Restore health"
 					 << "\n";
-			} else if (player.getSubclassType() == playerType::WARRIOR)
+			}
+			else if (player.getSubclassType() == playerType::WARRIOR)
 			{
 				cout << "4: Heavy Attack"
 					 << "\n";
-			} else if (player.getSubclassType() == playerType::ROGUE)
+			}
+			else if (player.getSubclassType() == playerType::ROGUE)
 			{
 				cout << "4: Attack with dagger"
 					 << "\n";
@@ -456,11 +468,13 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 				{
 					cout << "4: Restore health"
 						 << "\n";
-				} else if(player.getSubclassType() == playerType::WARRIOR)
+				}
+				else if (player.getSubclassType() == playerType::WARRIOR)
 				{
 					cout << "4: Heavy Attack"
 						 << "\n";
-				} else if(player.getSubclassType() == playerType::ROGUE)
+				}
+				else if (player.getSubclassType() == playerType::ROGUE)
 				{
 					cout << "4: Attack with dagger"
 						 << "\n";
@@ -635,14 +649,19 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 						cout << "You have been healed! \n\n";
 						break;
 					}
-					
-				} else if (player.getSubclassType() == playerType::WARRIOR)
+				}
+				else if (player.getSubclassType() == playerType::WARRIOR)
 				{
 					player.heavyAttack(&enemies[choice]);
 					cout << "You used heavy attack! \n\n";
 					break;
 				}
-				
+				else if (player.getSubclassType() == playerType::ROGUE)
+				{
+					// Add your code for the Rogue's dagger attack here
+					break;
+				}
+				break;
 
 			default:
 				break;
@@ -692,7 +711,6 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 					cout << "Damage: " << damage << "!" << endl;
 					std::string healthColor;
 					std::string healthBars;
-
 
 					if (choice == 2)
 					{

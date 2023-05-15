@@ -97,6 +97,10 @@ void Wizard::initializeWizard(const std::string name, playerType subclass)
     this->chest_armor = Gear(1, 1, "Robe", 1, 1, 1, 0);
     this->gauntlet = Gear(1, 1, "Gloves", 1, 1, 1, 0);
     this->leg_armor = Gear(1, 1, "Trousers", 1, 1, 1, 0);
+
+    //set the subclass
+    this->setSubclassType(subclass);
+    
     this->updateStats();
 }
 
