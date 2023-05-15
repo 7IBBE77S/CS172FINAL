@@ -3,6 +3,10 @@
 // Default constructor with random values and set values
 Monster::Monster(int level)
 {
+	// level cap for random monsters
+	if (level > 20){
+		level = 20;
+	}
 	this->level = level;
 	this->healthMax = rand()% (level * 10) + (level * 2);
 	this->health = this->healthMax;

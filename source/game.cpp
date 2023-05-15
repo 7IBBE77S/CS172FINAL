@@ -41,7 +41,7 @@ void Game::startGame()
 	{
 
 		this->load();
-		// this->save();
+		this->save();
 	}
 	// If no file exists, create a new character
 	else
@@ -559,7 +559,7 @@ void Game::load()
 	this->player.clear();
 
 	string name = "";
-	playerType subclass;
+	// playerType subclass;
 
 	int distanceWandered = 0;
 	int currency = 0;
@@ -595,8 +595,8 @@ void Game::load()
 		// read in lines from file
 		while (getline(inFile, line))
 		{
-				int subclassIndex;
-			inFile >> subclassIndex;
+			// 	int subclassIndex;
+			// inFile >> subclassIndex;
 
 		
 
@@ -652,26 +652,26 @@ void Game::load()
 
 		   //Subclass string
 
-		   str >> subclassIndex;
+		//    str >> subclassIndex;
 
-		   			switch (subclassIndex)
+		//    			switch (subclassIndex)
 
-			{
-			case 0:
-				subclass = playerType::WIZARD;
-				break;
-			case 1:
-				subclass = playerType::WARRIOR;
-				break;
-			case 2:
+		// 	{
+		// 	case 0:
+		// 		subclass = playerType::WIZARD;
+		// 		break;
+		// 	case 1:
+		// 		subclass = playerType::WARRIOR;
+		// 		break;
+		// 	case 2:
 
-				subclass = playerType::ROGUE;
-				break;
+		// 		subclass = playerType::ROGUE;
+		// 		break;
 
-			default:
-				subclass = playerType::WIZARD; // Default to wizard subclass if invalid index
-				break;
-			}
+		// 	default:
+		// 		subclass = playerType::WIZARD; // Default to wizard subclass if invalid index
+		// 		break;
+		// 	}
 
 			// Set armor
 			temp.setGearHead(helmet);
@@ -683,7 +683,7 @@ void Game::load()
 			temp.setWeapon(weapon);
 
 			// Set Subclass
-			temp.setSubclassType(subclass);
+			// temp.setSubclassType(subclass);
 
 			// Add Inventory Items
 			str.clear();

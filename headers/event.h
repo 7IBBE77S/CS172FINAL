@@ -15,6 +15,8 @@ public:
 	void generate(Character &player, Dynamic<Monster> &enemies);
 	void shop(Character &player);
 	void enemy(Character &player, Dynamic<Monster> &enemies);
+	void boss(Character &player, Dynamic<Monster> &enemies);
+	void deadNPC(Character &player);
 	// void boss(Dynamic<Boss> &boss);
 
 

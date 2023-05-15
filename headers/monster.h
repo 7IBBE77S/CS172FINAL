@@ -41,7 +41,7 @@ public:
 
 	int getMinAttack() const { return this->minAttack; }
 	int getMaxAttack() const { return this->maxAttack; }
-	int getDamage() const { return rand() % this->maxAttack + this->minAttack; }
+	int getDamage() const { return rand() % (this->maxAttack - this->minAttack) + this->minAttack; }
 	int getExperience() const { return this->level * 100; }
 	int getHealthPoint() const { return this->health; }
 	int getHealthPointMax() const { return this->healthMax; }
