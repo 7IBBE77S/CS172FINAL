@@ -32,7 +32,7 @@ Character::Character()
 
 	this->points = 0;
 
-	this->setSubclassType(subclass);
+	// this->setSubclassType(subclass);
 }
 
 Character::Character(string name, int distanceWandered,
@@ -133,13 +133,18 @@ void Character::initialize(const string name)
 	this->points = 0;
 
 	// add starting gear
-	this->weapon = Weapon(1, 5, "Rusty Sword", 1, 1, 1, 0);
-	this->helmet = Gear(1, 1, "Old Helmet", 1, 1, 1, 0);
-	this->chest_armor = Gear(1, 1, "Battle worn Chest Armor", 1, 1, 1, 0);
-	this->gauntlet = Gear(1, 1, "Leather Gauntlet", 1, 1, 1, 0);
-	this->leg_armor = Gear(1, 1, "Broken Leg Armor", 1, 1, 1, 0);
+	this->inventory.addItem(Weapon(1, 5,"Rusty Sword", 1, 1, 1, 0));
 
-	// set the sub class type
+	this->inventory.addItem(Gear(1, 1, "Old Helmet", 1, 1, 1, 0));
+	this->inventory.addItem(Gear(1, 1, "Battle worn Chest Armor", 1, 1, 1, 0));
+	this->inventory.addItem(Gear(1, 1, "Leather Gauntlet", 1, 1, 1, 0));
+	this->inventory.addItem(Gear(1, 1, "Broken Leg Armor", 1, 1, 1, 0));
+
+
+
+
+	// now equip the gear using the equipItem function"
+	
 
 	this->setSubclassType(subclass);
 
@@ -222,26 +227,26 @@ void Character::printStats() const
 
 string Character::to_String() const
 {
+    string subclassType;
+    switch (subclass)
+    {
+        case WIZARD:
+            subclassType = "Wizard";
+            break;
+        case WARRIOR:
+            subclassType = "Warrior";
+            break;
+        case ROGUE:
+            subclassType = "Rogue";
+            break;
+        default:
+            subclassType = "Unknown";
+            break;
+    }
 
-	string subclassType;
-	switch (subclass)
-	{
-	case WIZARD:
-		subclassType = "Wizard";
-		break;
-	case WARRIOR:
-		subclassType = "Warrior";
-		break;
-	case ROGUE:
-		subclassType = "Rogue";
-		break;
-	default:
-		subclassType = "Unknown";
-		break;
-	}
-
-	return name + " " + to_string(distanceWandered) + " " + to_string(currency) + " " + to_string(level) + " " + to_string(experience) + " " + to_string(strength) + " " + to_string(vitality) + " " + to_string(dexterity) + " " + to_string(intelligence) + " " + to_string(health) + " " + to_string(stamina) + " " + to_string(points) + " " + subclassType + " " + this->weapon.toStringSave() + this->helmet.toStringSave() + this->chest_armor.toStringSave() + this->gauntlet.toStringSave() + this->leg_armor.toStringSave();
+    return name + " " + to_string(distanceWandered) + " " + to_string(currency) + " " + to_string(level) + " " + to_string(experience) + " " + to_string(strength) + " " + to_string(vitality) + " " + to_string(dexterity) + " " + to_string(intelligence) + " " + to_string(health) + " " + to_string(stamina) + " " + to_string(points) + " " + subclassType + " " + this->weapon.toStringSave() + this->helmet.toStringSave() + this->chest_armor.toStringSave() + this->gauntlet.toStringSave() + this->leg_armor.toStringSave();
 }
+
 
 string Character::getInventoryToString(bool shop)
 {

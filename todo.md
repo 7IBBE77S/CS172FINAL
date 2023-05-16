@@ -1,3 +1,18 @@
+wiping equipped weapons/gear when loading a character.
+
+Nic 1 100 1 0 3 4 7 10 28 7 0 Wizard 0 Staff 1 0 1 1 1 5 1 Hood 1 0 1 1 1 1 1 Robe 1 0 1 1 1 1 1 Gloves 1 0 1 1 1 1 1 Trousers 1 0 1 1 1 1 
+0 Staff 1 0 1 1 1 5 
+1 Hood 1 0 1 1 1 1 1 Robe 1 0 1 1 1 1 1 Gloves 1 0 1 1 1 1 1 Trousers 1 0 1 1 1 1 
+
+
+
+Nic 1 100 1 0 3 4 7 10 28 7 0 Unknown 0 Nic 1 0 0 0 0 0 1 Nic 1 0 0 0 0 0 1 Nic 1 0 0 0 0 0 1 Nic 1 0 0 0 0 0 1 Nic 1 0 0 0 0 0 
+0 Staff 1 0 1 1 1 5 
+1 Hood 1 0 1 1 1 1 1 Robe 1 0 1 1 1 1 1 Gloves 1 0 1 1 1 1 1 Trousers 1 0 1 1 1 1 
+
+
+
+
 # ADD:
 
 - [/] give character starting gear.

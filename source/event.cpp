@@ -1,4 +1,5 @@
 #include "event.h"
+#include "game.h"
 #include "functions.h"
 #include <unistd.h>
 // #include <term.h>
@@ -281,6 +282,8 @@ void Event::shop(Character &player)
 		cout << "ENTER to continue..."
 			 << "\n";
 		cin.get();
+
+		//save game
 	}
 
 	cout << "You left the shop.."
@@ -683,9 +686,135 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 				else if (player.getSubclassType() == playerType::WARRIOR)
 				{
 					// player.heavyAttack(&enemies[choice]);
+					
+							// Select enemy
+				cout << "Select enemy: "
+					 << endl;
+
+				for (int i = 0; i < enemies.size(); i++)
+				{
+					cout << i << ": "
+						 << "Level: " << enemies[i].getLevel() << " - "
+						 << "healthPoints: " << enemies[i].getHealthPoint() << "/" << enemies[i].getHealthPointMax() << " - "
+						 << "defense: " << enemies[i].getDefense() << " - "
+						 << "Accuracy: " << enemies[i].getAccuracy() << " - "
+						 << "Damage: " << enemies[i].getMinAttack() << " - " << enemies[i].getMaxAttack() << "\n";
+				}
+
+				cout << endl;
+				cout << "Choice: ";
+
+				cin >> choice;
+
+				while (cin.fail() || choice >= enemies.size() || choice < 0)
+				{
+					cout << "Try again."
+						 << "\n";
+					cin.clear();
+					cin.ignore(100, '\n');
+
+					cout << "Select enemy: "
+						 << endl;
+					cout << "Choice: ";
+					cin >> choice;
+				}
+
+				cin.ignore(100, '\n');
+				cout << endl;
+
+				// Attack roll
+				combatTotal = enemies[choice].getDefense() + player.getAccuracy();
+				enemyTotal = enemies[choice].getDefense() / (double)combatTotal * 100;
+				playerTotal = player.getAccuracy() / (double)combatTotal * 100;
+				combatRollPlayer = rand() % playerTotal + 1;
+				combatRollMonster = rand() % enemyTotal + 1;
+
+				cout << "Combat total: " << combatTotal << "\n";
+				cout << "Monster percent: " << enemyTotal << "\n";
+				cout << "Player percent: " << playerTotal << endl;
+				cout << "Player roll: " << combatRollPlayer << "\n";
+				cout << "Monster roll: " << combatRollMonster << endl;
+
+				if (combatRollPlayer > combatRollMonster) // Hit
+				{
+					cout << "HIT! "
+						 << endl;
+
 					damage = player.getMaxDamage();
 					enemies[choice].Damaged(damage);
-					cout << "You used heavy attack! \n\n";
+
+					cout << "Damage: " << damage << "!"
+						 << endl;
+
+					if (!enemies[choice].isAlive())
+					{
+						cout << "Monster Slain!"
+							 << endl;
+						gainExperience = enemies[choice].getExperience();
+						player.gainExperience(gainExperience);
+						gainShards = rand() % enemies[choice].getLevel() * 10 + 1;
+						player.gainShards(gainShards);
+						cout << "Experience Gained: " << gainExperience << "\n";
+						cout << "Shards Gained: " << gainShards << endl;
+
+						// Item roll
+						int roll = rand() % 100 + 1;
+						int rarity = -1;
+
+						// Rarity determination
+						if (roll > 20)
+						{
+							// Common
+							rarity = 0;
+							if (roll > 30)
+							{
+								// Uncommon
+								rarity = 1;
+								if (roll > 50)
+								{ // Rare
+									rarity = 2;
+									if (roll > 70)
+									{
+										// Legendary
+										rarity = 3;
+										if (roll > 90)
+										{
+											// Mythic
+											rarity = 4;
+										}
+									}
+								}
+							}
+						}
+
+						if (roll >= 0)
+						{
+							roll = rand() % 100 + 1;
+
+							if (roll > 50)
+							{
+								Weapon tempW(player.getLevel(), rarity);
+								player.addItem(tempW);
+								cout << "A weapon drop."
+									 << "\n";
+							}
+							else
+							{
+								Gear tempG(player.getLevel(), rarity);
+								player.addItem(tempG);
+								cout << "A piece of gear drop."
+									 << "\n";
+							}
+						}
+
+						enemies.remove(choice);
+					}
+				}
+				else
+				{
+					cout << "Monster dodged attack! \n\n";
+				}
+
 					break;
 				}
 				else if (player.getSubclassType() == playerType::ROGUE)

@@ -37,6 +37,7 @@ private:
 public:
 	Game();
 	~Game();
+	// Event currentEvent;
 
 	void startGame();
 	void mainMenu();
