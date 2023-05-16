@@ -8,7 +8,7 @@
 class Wizard : public Character
 {
 private:
-    int type;
+   
     // int intelligence;
 
 public:
@@ -23,7 +23,6 @@ public:
 
     inline int getIntelligence() const { return this->intelligence; }
 
-    inline int getType() const { return this->type; }
 
     void initializeWizard(const std::string name, playerType subclass);
 

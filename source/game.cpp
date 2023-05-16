@@ -225,7 +225,7 @@ void Game::createCharacter()
 
 	player.push_back(Character());
 	loadedPlayer = player.size() - 1;
-	player[loadedPlayer].initialize(name);
+	// player[loadedPlayer].initialize(name);
 
 	cout << "Select class:"
 		 << "\n";
@@ -237,7 +237,7 @@ void Game::createCharacter()
 		 << "\n";
 
 	int classChoice;
-	cin >> classChoice;
+	// cin >> classChoice;
 
 	while (cin.fail() || classChoice < 1 || classChoice > 3)
 	{
@@ -277,7 +277,6 @@ void Game::createCharacter()
 		wizard[loadedPlayer].initializeWizard(name, playerType::WIZARD);
 
 		player[loadedPlayer].setSubclassType(playerType::WIZARD);
-		player[loadedPlayer].setSubclassType(static_cast<playerType>(classChoice - 1));
 
 		player[loadedPlayer] = wizard[loadedPlayer];
 
@@ -289,7 +288,6 @@ void Game::createCharacter()
 		warrior[loadedPlayer].initializeWarrior(name, playerType::WARRIOR);
 
 		player[loadedPlayer].setSubclassType(playerType::WARRIOR);
-		player[loadedPlayer].setSubclassType(static_cast<playerType>(classChoice - 1));
 
 		player[loadedPlayer] = warrior[loadedPlayer];
 
@@ -542,16 +540,35 @@ void Game::save()
 	{
 		for (size_t i = 0; i < this->player.size(); i++)
 		{
+
 			outFile << this->player[i].to_String() << "\n";
+			
+			// switch(this->player[i].getSubclassType())
+			// {
+			// 	case playerType::WARRIOR:
+			// 		outFile << this->player[i].playerTypeToString(WARRIOR) << "\n";
+			// 		break;
+			// 	case playerType::WIZARD:
+			// 		outFile << this->player[i].playerTypeToString(WIZARD) << "\n";
+			// 		break;
+			// 	case playerType::ROGUE:
+			// 		outFile << this->player[i].playerTypeToString(ROGUE) << "\n";
+			// 		break;
+			// 	default:
+			// 		break;
+
+			// }
+			// outFile << this->player[i].getSubclassType() << "\n";
 			outFile << this->player[i].getSaveInventoryToString() << "\n";
+
+			
 		}
 	}
 
 	outFile.close();
 }
 
-
-//TODO: fix character not loading subclass data properly
+// TODO: fix character not loading subclass data properly
 void Game::load()
 {
 	ifstream inFile(fileName);
@@ -559,7 +576,6 @@ void Game::load()
 	this->player.clear();
 
 	string name = "";
-	// playerType subclass;
 
 	int distanceWandered = 0;
 	int currency = 0;
@@ -582,6 +598,12 @@ void Game::load()
 	int buyValue = 0;
 	int sellValue = 0;
 	int rarity = 0;
+	int subclassValue = 0;
+
+	// initialize enum player subclass
+	// playerType subclass;
+
+
 
 	Inventory tempItems;
 
@@ -595,11 +617,6 @@ void Game::load()
 		// read in lines from file
 		while (getline(inFile, line))
 		{
-			// 	int subclassIndex;
-			// inFile >> subclassIndex;
-
-		
-
 
 			str.str(line);
 			// TODO: add subclass data
@@ -607,9 +624,9 @@ void Game::load()
 				experience >> strength >> vitality >> dexterity >> intelligence >>
 				health >> stamina >> points;
 
-			// Create player TODO: add subclass data
-			Character temp(name, distanceWandered, currency, level, experience, strength, vitality, dexterity, intelligence, health, stamina, points);
 
+			Character temp(name, distanceWandered, currency, level, experience, strength, vitality, dexterity, intelligence, health, stamina, points, WARRIOR);
+			// Set Subclass
 			// String Weapon
 			str >>
 				itemType >> name >> level >>
@@ -650,29 +667,6 @@ void Game::load()
 
 			Gear armor_legs(type, defense, name, level, buyValue, sellValue, rarity);
 
-		   //Subclass string
-
-		//    str >> subclassIndex;
-
-		//    			switch (subclassIndex)
-
-		// 	{
-		// 	case 0:
-		// 		subclass = playerType::WIZARD;
-		// 		break;
-		// 	case 1:
-		// 		subclass = playerType::WARRIOR;
-		// 		break;
-		// 	case 2:
-
-		// 		subclass = playerType::ROGUE;
-		// 		break;
-
-		// 	default:
-		// 		subclass = playerType::WIZARD; // Default to wizard subclass if invalid index
-		// 		break;
-		// 	}
-
 			// Set armor
 			temp.setGearHead(helmet);
 			temp.setGearChest(chest_armor);
@@ -682,11 +676,10 @@ void Game::load()
 			// Set weapon
 			temp.setWeapon(weapon);
 
-			// Set Subclass
-			// temp.setSubclassType(subclass);
+			
 
-			// Add Inventory Items
-			str.clear();
+				// Add Inventory Items
+				str.clear();
 			line.clear();
 			if (!inFile.is_open() || inFile.eof())
 			{
@@ -735,7 +728,13 @@ void Game::load()
 			clearTerminal();
 
 			this->player.push_back(Character(temp));
+			// subclasses
 
+			this->player.push_back(Character(temp));
+				 playerType subclass = static_cast<playerType>(subclassValue); 
+
+			this->player[this->player.size() - 1].setSubclassType(subclass);
+			
 			cout << "Player " << temp.getName() << " loaded!\n";
 
 			str.clear();

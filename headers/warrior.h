@@ -9,7 +9,6 @@
 class Warrior : public Character
 {
 private:
-    int type;
 
 public:
     Warrior();
@@ -23,7 +22,6 @@ public:
 
     inline int getStrength() const { return this->strength; }
 
-    inline int getType() const { return this->type; }
 
     void initializeWarrior(const std::string name, playerType subclass);
 

@@ -31,7 +31,6 @@ protected:
 	int currency;
 
 	std::string name;
-	playerType subclass;
 
 	int level;
 	int experience;
@@ -54,13 +53,15 @@ protected:
 
 	int points;
 
+	playerType subclass; 
+
 public:
 	Character();
 	Character(string name, int distanceWandered,
 			  int currency, int level,
 			  int experience, int strength, int vitality,
 			  int dexterity, int intelligence,
-			  int health, int stamina, int points);
+			  int health, int stamina, int points, playerType subclass);
 	virtual ~Character();
 
 	void initialize(const std::string name);
@@ -102,7 +103,10 @@ public:
 	// warrior ability
 	inline void heavyAttack(Monster *enemy)
 	{
-		enemy->Damaged(this->strength += (0.5 * this->strength));
+		// damage = player.getDamage();
+		// 			enemies[choice].Damaged(damage);
+		// enemy->Damaged(this->strength += (0.5 * this->strength));
+		enemy->Damaged(getMaxAttack() * 1.5);
 	}
 	// rogue ability
 	inline void weakenDebuff(Monster *enemy)
@@ -131,6 +135,8 @@ public:
 	inline const int &getDamageMin() const { return this->minAttack; }
 	inline const int &getMaxAttack() const { return this->maxAttack; }
 	inline const int getDamage() const { return rand() % (this->maxAttack + this->weapon.getMaxAttack()) + (this->minAttack + this->weapon.getMinAttack()); }
+	inline const int getMaxDamage() const { return this->maxAttack + this->weapon.getMaxAttack(); }
+
 	inline const int &getDefense() const { return this->defense; }
 	inline const int getAdditionalDefense() const { return this->gauntlet.getDefense() + this->chest_armor.getDefense() + this->leg_armor.getDefense() + this->helmet.getDefense(); }
 	inline const int &getAccuracy() const { return this->accuracy; }

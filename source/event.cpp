@@ -321,6 +321,7 @@ void Event::deadNPC(Character &player)
 	}
 	cin.ignore(100, '\n');
 }
+
 void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 {
 	cout << "You have stumbled upon monsters!"
@@ -681,7 +682,9 @@ void Event::enemy(Character &player, Dynamic<Monster> &enemies)
 				}
 				else if (player.getSubclassType() == playerType::WARRIOR)
 				{
-					player.heavyAttack(&enemies[choice]);
+					// player.heavyAttack(&enemies[choice]);
+					damage = player.getMaxDamage();
+					enemies[choice].Damaged(damage);
 					cout << "You used heavy attack! \n\n";
 					break;
 				}
