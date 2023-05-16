@@ -61,7 +61,7 @@ public:
 			  int currency, int level,
 			  int experience, int strength, int vitality,
 			  int dexterity, int intelligence,
-			  int health, int stamina, int points, playerType subclass);
+			  int health, int stamina, int points);
 	virtual ~Character();
 
 	void initialize(const std::string name);

@@ -32,7 +32,7 @@ Wizard::Wizard()
 
 
 Wizard::Wizard(string name, int level, int experience, int strength, int vitality, int dexterity, int intelligence, int health, int points)
-    : Character(name, 0, 0, level, experience, strength, vitality, dexterity, intelligence, health, 0, points, playerType::WIZARD)
+    : Character(name, 0, 0, level, experience, strength, vitality, dexterity, intelligence, health, 0, points)
 {
 
      this->name = name;
@@ -62,7 +62,7 @@ Wizard::Wizard(string name, int level, int experience, int strength, int vitalit
 
 	this->points = points;
 	
-	this->subclass = subclass;
+	// this->subclass = subclass;
 
 	this->setSubclassType(subclass);
     

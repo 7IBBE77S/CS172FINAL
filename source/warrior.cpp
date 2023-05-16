@@ -31,7 +31,7 @@ Warrior::Warrior()
 }
 
 Warrior::Warrior(string name, int level, int experience, int strength, int vitality, int dexterity, int intelligence, int health, int points)
-    : Character(name, 0, 0, level, experience, strength, vitality, dexterity, intelligence, health, 0, points, playerType::WARRIOR)
+    : Character(name, 0, 0, level, experience, strength, vitality, dexterity, intelligence, health, 0, points)
 {
 
      this->name = name;
@@ -61,7 +61,6 @@ Warrior::Warrior(string name, int level, int experience, int strength, int vital
 
 	this->points = points;
 
-	this->subclass = subclass;
 
 
 

@@ -32,7 +32,6 @@ Character::Character()
 
 	this->points = 0;
 
-
 	this->setSubclassType(subclass);
 }
 
@@ -40,7 +39,7 @@ Character::Character(string name, int distanceWandered,
 					 int currency, int level,
 					 int experience, int strength, int vitality,
 					 int dexterity, int intelligence,
-					 int health, int stamina, int points, playerType subclass)
+					 int health, int stamina, int points)
 {
 
 	this->name = name;
@@ -69,7 +68,7 @@ Character::Character(string name, int distanceWandered,
 	this->luck = 0;
 
 	this->points = points;
-	this->subclass = subclass;
+	// this->subclass = subclass;
 	this->setSubclassType(subclass);
 
 	this->updateStats();
@@ -223,7 +222,25 @@ void Character::printStats() const
 
 string Character::to_String() const
 {
-	return name + " " + to_string(distanceWandered) + " " + to_string(currency) + " " + to_string(level) + " " + to_string(experience) + " " + to_string(strength) + " " + to_string(vitality) + " " + to_string(dexterity) + " " + to_string(intelligence) + " " + to_string(health) + " " + to_string(stamina) + " " + to_string(points) + " " + this->weapon.toStringSave() + this->helmet.toStringSave() + this->chest_armor.toStringSave() + this->gauntlet.toStringSave() + this->leg_armor.toStringSave();
+
+	string subclassType;
+	switch (subclass)
+	{
+	case WIZARD:
+		subclassType = "Wizard";
+		break;
+	case WARRIOR:
+		subclassType = "Warrior";
+		break;
+	case ROGUE:
+		subclassType = "Rogue";
+		break;
+	default:
+		subclassType = "Unknown";
+		break;
+	}
+
+	return name + " " + to_string(distanceWandered) + " " + to_string(currency) + " " + to_string(level) + " " + to_string(experience) + " " + to_string(strength) + " " + to_string(vitality) + " " + to_string(dexterity) + " " + to_string(intelligence) + " " + to_string(health) + " " + to_string(stamina) + " " + to_string(points) + " " + subclassType + " " + this->weapon.toStringSave() + this->helmet.toStringSave() + this->chest_armor.toStringSave() + this->gauntlet.toStringSave() + this->leg_armor.toStringSave();
 }
 
 string Character::getInventoryToString(bool shop)
@@ -262,6 +279,9 @@ string Character::getSaveInventoryToString()
 		if (this->inventory[i].getItemType() == itemTypes::ARMOR)
 			inv += this->inventory[i].toStringSave();
 	}
+
+	//add subclass starting gear/weapon
+
 
 	return inv;
 }

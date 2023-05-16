@@ -41,7 +41,7 @@ void Game::startGame()
 	{
 
 		this->load();
-		this->save();
+		
 	}
 	// If no file exists, create a new character
 	else
@@ -53,7 +53,7 @@ void Game::startGame()
 	// if it is not empty, load the character
 
 	in.close();
-	this->save();
+	
 }
 
 void Game::mainMenu()
@@ -225,7 +225,7 @@ void Game::createCharacter()
 
 	player.push_back(Character());
 	loadedPlayer = player.size() - 1;
-	// player[loadedPlayer].initialize(name);
+	player[loadedPlayer].initialize(name);
 
 	cout << "Select class:"
 		 << "\n";
@@ -237,7 +237,7 @@ void Game::createCharacter()
 		 << "\n";
 
 	int classChoice;
-	// cin >> classChoice;
+	cin >> classChoice;
 
 	while (cin.fail() || classChoice < 1 || classChoice > 3)
 	{
@@ -277,7 +277,6 @@ void Game::createCharacter()
 		wizard[loadedPlayer].initializeWizard(name, playerType::WIZARD);
 
 		player[loadedPlayer].setSubclassType(playerType::WIZARD);
-
 		player[loadedPlayer] = wizard[loadedPlayer];
 
 		break;
@@ -542,7 +541,8 @@ void Game::save()
 		{
 
 			outFile << this->player[i].to_String() << "\n";
-			
+			outFile << this->player[i].getSaveInventoryToString() << "\n";
+
 			// switch(this->player[i].getSubclassType())
 			// {
 			// 	case playerType::WARRIOR:
@@ -558,10 +558,6 @@ void Game::save()
 			// 		break;
 
 			// }
-			// outFile << this->player[i].getSubclassType() << "\n";
-			outFile << this->player[i].getSaveInventoryToString() << "\n";
-
-			
 		}
 	}
 
@@ -576,7 +572,6 @@ void Game::load()
 	this->player.clear();
 
 	string name = "";
-
 	int distanceWandered = 0;
 	int currency = 0;
 	int level = 0;
@@ -598,12 +593,7 @@ void Game::load()
 	int buyValue = 0;
 	int sellValue = 0;
 	int rarity = 0;
-	int subclassValue = 0;
-
-	// initialize enum player subclass
-	// playerType subclass;
-
-
+	// int subclassInt = 0;
 
 	Inventory tempItems;
 
@@ -619,238 +609,240 @@ void Game::load()
 		{
 
 			str.str(line);
-			// TODO: add subclass data
-			str >> name >> distanceWandered >> currency >> level >>
-				experience >> strength >> vitality >> dexterity >> intelligence >>
-				health >> stamina >> points;
 
+			str >> name >> distanceWandered >> currency >> level >> experience >>
+				strength >> vitality >> dexterity >> intelligence >> health >>
+				stamina >> points;
 
-			Character temp(name, distanceWandered, currency, level, experience, strength, vitality, dexterity, intelligence, health, stamina, points, WARRIOR);
-			// Set Subclass
-			// String Weapon
-			str >>
-				itemType >> name >> level >>
-				rarity >> buyValue >> sellValue >>
-				minAttack >> maxAttack;
-
-			Weapon weapon(minAttack, maxAttack, name, level, buyValue, sellValue, rarity);
-
-			// Gear head string
-			str >>
-				itemType >> name >> level >>
-				rarity >> buyValue >> sellValue >>
-				defense >> type;
-
-			Gear helmet(type, defense, name, level, buyValue, sellValue, rarity);
-
-			// Gear chest string
-			str >>
-				itemType >> name >> level >>
-				rarity >> buyValue >> sellValue >>
-				defense >> type;
-
-			Gear chest_armor(type, defense, name, level, buyValue, sellValue, rarity);
-
-			// Gear arms string
-			str >>
-				itemType >> name >> level >>
-				rarity >> buyValue >> sellValue >>
-				defense >> type;
-
-			Gear armor_arms(type, defense, name, level, buyValue, sellValue, rarity);
-
-			// Gear legs string
-			str >>
-				itemType >> name >> level >>
-				rarity >> buyValue >> sellValue >>
-				defense >> type;
-
-			Gear armor_legs(type, defense, name, level, buyValue, sellValue, rarity);
-
-			// Set armor
-			temp.setGearHead(helmet);
-			temp.setGearChest(chest_armor);
-			temp.setGearArms(armor_arms);
-			temp.setGearLegs(armor_legs);
-
-			// Set weapon
-			temp.setWeapon(weapon);
+				// playerType subclass = static_cast<playerType>(subclassInt);
 
 			
+
+
+				// Create player
+				Character temp(name, distanceWandered, currency, level,
+							   experience, strength, vitality, dexterity, intelligence,
+							   health, stamina, points);
+
+				// String Weapon
+				str >>
+					itemType >> name >> level >>
+					rarity >> buyValue >> sellValue >>
+					minAttack >> maxAttack;
+
+				Weapon weapon(minAttack, maxAttack, name, level, buyValue, sellValue, rarity);
+
+				// Gear head string
+				str >>
+					itemType >> name >> level >>
+					rarity >> buyValue >> sellValue >>
+					defense >> type;
+
+				Gear helmet(type, defense, name, level, buyValue, sellValue, rarity);
+
+				// Gear chest string
+				str >>
+					itemType >> name >> level >>
+					rarity >> buyValue >> sellValue >>
+					defense >> type;
+
+				Gear chest_armor(type, defense, name, level, buyValue, sellValue, rarity);
+
+				// Gear arms string
+				str >>
+					itemType >> name >> level >>
+					rarity >> buyValue >> sellValue >>
+					defense >> type;
+
+				Gear armor_arms(type, defense, name, level, buyValue, sellValue, rarity);
+
+				// Gear legs string
+				str >>
+					itemType >> name >> level >>
+					rarity >> buyValue >> sellValue >>
+					defense >> type;
+
+				Gear armor_legs(type, defense, name, level, buyValue, sellValue, rarity);
+
+				// Set armor
+				temp.setGearHead(helmet);
+				temp.setGearChest(chest_armor);
+				temp.setGearArms(armor_arms);
+				temp.setGearLegs(armor_legs);
+
+				// Set weapon
+				temp.setWeapon(weapon);
 
 				// Add Inventory Items
 				str.clear();
-			line.clear();
-			if (!inFile.is_open() || inFile.eof())
-			{
-				break;
-			}
-			getline(inFile, line);
+				line.clear();
+				if (!inFile.is_open() || inFile.eof())
+				{
+					break;
+				}
+				getline(inFile, line);
 
-			str.str(line);
+				str.str(line);
 
-			while (str >> itemType >> name >> level >>
-				   rarity >> buyValue >> sellValue >>
-				   minAttack >> maxAttack)
-			{
-				temp.addItem(
-					Weapon(
-						minAttack,
-						maxAttack,
-						name,
-						level,
-						buyValue,
-						sellValue,
-						rarity));
-			}
+				while (str >> itemType >> name >> level >>
+					   rarity >> buyValue >> sellValue >>
+					   minAttack >> maxAttack)
+				{
+					temp.addItem(
+						Weapon(
+							minAttack,
+							maxAttack,
+							name,
+							level,
+							buyValue,
+							sellValue,
+							rarity));
+				}
 
-			str.clear();
-			line.clear();
-			getline(inFile, line);
+				str.clear();
+				line.clear();
+				getline(inFile, line);
 
-			str.str(line);
+				str.str(line);
 
-			while (str >>
-				   itemType >> name >> level >>
-				   rarity >> buyValue >> sellValue >>
-				   defense >> type)
-			{
-				temp.addItem(
-					Gear(
-						type,
-						defense,
-						name,
-						level,
-						buyValue,
-						sellValue,
-						rarity));
-			}
-			clearTerminal();
+				while (str >>
+					   itemType >> name >> level >>
+					   rarity >> buyValue >> sellValue >>
+					   defense >> type)
+				{
+					temp.addItem(
+						Gear(
+							type,
+							defense,
+							name,
+							level,
+							buyValue,
+							sellValue,
+							rarity));
+				}
+				clearTerminal();
 
-			this->player.push_back(Character(temp));
-			// subclasses
-
-			this->player.push_back(Character(temp));
-				 playerType subclass = static_cast<playerType>(subclassValue); 
-
-			this->player[this->player.size() - 1].setSubclassType(subclass);
+				this->player.push_back(Character(temp));
+				
 			
-			cout << "Player " << temp.getName() << " loaded!\n";
+			
 
-			str.clear();
+
+				std::cout << "Player " << temp.getName() << " loaded!\n";
+
+				str.clear();
+			}
+		}
+
+		inFile.close();
+
+		if (this->player.size() <= 0)
+		{
+			throw "Error. No players found.";
 		}
 	}
-
-	inFile.close();
-
-	if (this->player.size() <= 0)
+	void Game::select()
 	{
-		throw "Error. No players found.";
-	}
-}
-
-void Game::select()
-{
-	cout << "Select player: "
-		 << "\n\n";
-
-	for (size_t i = 0; i < this->player.size(); i++)
-	{
-		cout << "Index: " << i << " = " << this->player[i].getName() << " Level: " << this->player[i].getLevel() << "\n";
-	}
-
-	cout << "\n";
-
-	cout << "Choice: ";
-
-	cin >> this->choice;
-
-	while (cin.fail() || this->choice >= this->player.size() || this->choice < 0)
-	{
-		cout << "Try again." << endl;
-		cin.clear();
-		cin.ignore(100, '\n');
-
-		cout << "Select player: " << endl;
-		cin >> this->choice;
-	}
-
-	cin.ignore(100, '\n');
-	cout << endl;
-
-	this->loadedPlayer = this->choice;
-
-	cout << this->player[this->loadedPlayer].getName() << " is selected."
-		 << "\n\n";
-}
-
-// This function generates a "random" event for the player to handle
-// It takes the player as a parameter, as well as the array of
-// enemies so that it can generate an appropriate event
-void Game::travel()
-{
-
-	// "Generate" a new event.
-	this->player[loadedPlayer].travel();
-
-	// Create a new event object.
-	Event ev;
-
-	// "Generate" the event.
-	ev.generate(this->player[loadedPlayer], this->enemies);
-}
-void Game::rest()
-{
-	// The resting cost is the amount of healthPoints the player needs to restore to full.
-	int restingCost = this->player[this->loadedPlayer].getHealthPointsMax() - this->player[this->loadedPlayer].getHealthPoints();
-	cout << "*** Sleep ***"
-		 << "\n\n";
-	cout << "Resting costs you: " << restingCost << "\n";
-	cout << "Your currency: " << this->player[this->loadedPlayer].getShards() << "\n";
-	cout << "healthPoints: " << this->player[this->loadedPlayer].getHealthPoints() << " / " << this->player[this->loadedPlayer].getHealthPointsMax() << "\n\n";
-
-	if (this->player[this->loadedPlayer].getShards() < restingCost)
-	{
-		cout << "Not enough currency."
+		cout << "Select player: "
 			 << "\n\n";
-	}
-	else if (this->player[this->loadedPlayer].getHealthPoints() >= this->player[this->loadedPlayer].getHealthPointsMax())
-	{
-		cout << "Health is full."
-			 << "\n\n";
-	}
-	else
-	{
-		cout << "\n\n Rest? (1) Yes, (0) No..."
-			 << "\n\n";
+
+		for (size_t i = 0; i < this->player.size(); i++)
+		{
+			cout << "Index: " << i << " = " << this->player[i].getName() << " Level: " << this->player[i].getLevel() << "\n";
+		}
+
+		cout << "\n";
+
+		cout << "Choice: ";
 
 		cin >> this->choice;
 
-		while (cin.fail() || this->choice > 1 || this->choice < 0)
+		while (cin.fail() || this->choice >= this->player.size() || this->choice < 0)
 		{
 			cout << "Try again." << endl;
 			cin.clear();
 			cin.ignore(100, '\n');
 
-			cout << "\n\n Rest? (1) Yes, (0) No..."
-				 << "\n\n";
+			cout << "Select player: " << endl;
 			cin >> this->choice;
 		}
 
 		cin.ignore(100, '\n');
 		cout << endl;
 
-		if (this->choice == 1)
+		this->loadedPlayer = this->choice;
+
+		cout << this->player[this->loadedPlayer].getName() << " is selected."
+			 << "\n\n";
+	}
+
+	// This function generates a "random" event for the player to handle
+	// It takes the player as a parameter, as well as the array of
+	// enemies so that it can generate an appropriate event
+	void Game::travel()
+	{
+
+		// "Generate" a new event.
+		this->player[loadedPlayer].travel();
+
+		// Create a new event object.
+		Event ev;
+
+		// "Generate" the event.
+		ev.generate(this->player[loadedPlayer], this->enemies);
+	}
+	void Game::rest()
+	{
+		// The resting cost is the amount of healthPoints the player needs to restore to full.
+		int restingCost = this->player[this->loadedPlayer].getHealthPointsMax() - this->player[this->loadedPlayer].getHealthPoints();
+		cout << "*** Sleep ***"
+			 << "\n\n";
+		cout << "Resting costs you: " << restingCost << "\n";
+		cout << "Your currency: " << this->player[this->loadedPlayer].getShards() << "\n";
+		cout << "healthPoints: " << this->player[this->loadedPlayer].getHealthPoints() << " / " << this->player[this->loadedPlayer].getHealthPointsMax() << "\n\n";
+
+		if (this->player[this->loadedPlayer].getShards() < restingCost)
 		{
-			this->player[this->loadedPlayer].resetHealthPoints();
-			this->player[this->loadedPlayer].payShards(restingCost);
-			cout << "Rested!"
+			cout << "Not enough currency."
+				 << "\n\n";
+		}
+		else if (this->player[this->loadedPlayer].getHealthPoints() >= this->player[this->loadedPlayer].getHealthPointsMax())
+		{
+			cout << "Health is full."
 				 << "\n\n";
 		}
 		else
 		{
-			cout << "..."
+			cout << "\n\n Rest? (1) Yes, (0) No..."
 				 << "\n\n";
+
+			cin >> this->choice;
+
+			while (cin.fail() || this->choice > 1 || this->choice < 0)
+			{
+				cout << "Try again." << endl;
+				cin.clear();
+				cin.ignore(100, '\n');
+
+				cout << "\n\n Rest? (1) Yes, (0) No..."
+					 << "\n\n";
+				cin >> this->choice;
+			}
+
+			cin.ignore(100, '\n');
+			cout << endl;
+
+			if (this->choice == 1)
+			{
+				this->player[this->loadedPlayer].resetHealthPoints();
+				this->player[this->loadedPlayer].payShards(restingCost);
+				cout << "Rested!"
+					 << "\n\n";
+			}
+			else
+			{
+				cout << "..."
+					 << "\n\n";
+			}
 		}
 	}
-}
